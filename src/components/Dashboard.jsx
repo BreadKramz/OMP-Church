@@ -10,27 +10,45 @@ function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const getProfile = async (userId) => {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('id', userId)
-      .single()
-
-    if (error) {
-      console.error('Error fetching profile:', error)
-    } else {
-      setProfile(data)
-      if (data.role !== 'user') {
-        navigate('/')
-      }
-    }
-  }
-
   const getUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
-      getProfile(user.id)
+      // Try to get profile
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single()
+
+      if (error) {
+        // Profile doesn't exist, insert default
+        const { error: insertError } = await supabase.from('profiles').insert({
+          id: user.id,
+          first_name: 'User',
+          last_name: '',
+          email_address: user.email,
+          phone_number: '',
+          role: 'user'
+        })
+
+        if (!insertError) {
+          // Fetch the newly inserted profile
+          const { data: newData } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
+            .single()
+          setProfile(newData)
+        } else {
+          console.error('Error inserting profile:', insertError)
+          navigate('/login')
+        }
+      } else {
+        setProfile(data)
+        if (data.role !== 'user') {
+          navigate('/')
+        }
+      }
     } else {
       navigate('/login')
     }
