@@ -97,7 +97,7 @@ function Signup() {
       </header>
 
       <div className="min-h-screen relative py-8 px-4 pt-16">
-        <div className="h-full flex items-center justify-center">
+        <div className="h-full flex items-start justify-center pt-12">
           <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
         <div className="text-center mb-4">
           <h2 className="text-lg font-bold text-[#2c3e50] mb-1">Create Account</h2>
