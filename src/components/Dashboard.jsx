@@ -134,31 +134,14 @@ function Dashboard() {
             </div>
 
             {profile && (
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-[#f8f5f0] rounded-lg p-4">
-                  <h2 className="text-lg font-semibold text-[#2c3e50] mb-3">Profile Information</h2>
-                  <div className="space-y-2">
-                    <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
-                    <p><span className="font-medium">Email:</span> {profile.email_address}</p>
-                    <p><span className="font-medium">Phone:</span> {profile.phone_number}</p>
-                    <p><span className="font-medium">Role:</span> {profile.role}</p>
-                    <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
-                  </div>
-                </div>
-
-                <div className="bg-[#f8f5f0] rounded-lg p-4">
-                  <h2 className="text-lg font-semibold text-[#2c3e50] mb-3">Quick Actions</h2>
-                  <div className="space-y-3">
-                    <a href="/#ministries" className="block w-full bg-[#8B4513] text-white py-2 px-4 rounded-lg font-semibold text-center hover:bg-[#8B4513]/90 transition-all">
-                      Explore Ministries
-                    </a>
-                    <a href="/#events" className="block w-full bg-[#2c3e50] text-white py-2 px-4 rounded-lg font-semibold text-center hover:bg-[#2c3e50]/90 transition-all">
-                      View Events
-                    </a>
-                    <a href="/#contact" className="block w-full bg-[#34495e] text-white py-2 px-4 rounded-lg font-semibold text-center hover:bg-[#34495e]/90 transition-all">
-                      Contact Us
-                    </a>
-                  </div>
+              <div className="bg-[#f8f5f0] rounded-lg p-4">
+                <h2 className="text-lg font-semibold text-[#2c3e50] mb-3">Profile Information</h2>
+                <div className="space-y-2">
+                  <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
+                  <p><span className="font-medium">Email:</span> {profile.email_address}</p>
+                  <p><span className="font-medium">Phone:</span> {profile.phone_number}</p>
+                  <p><span className="font-medium">Role:</span> {profile.role}</p>
+                  <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
                 </div>
               </div>
             )}
