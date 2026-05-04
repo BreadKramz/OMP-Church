@@ -46,7 +46,7 @@ function App() {
   }, [])
 
   return (
-    <div className="font-body bg-gray-50 text-gray-900 scroll-smooth">
+    <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
       {/* Header */}
       <header id="main-header" className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300 ${headerVisible ? '' : '-translate-y-full'}`}>
         <div className="max-w-7xl mx-auto px-4">
@@ -203,7 +203,7 @@ function App() {
       </section>
 
       {/* About */}      {/* About */}
-      <section id="about" className="py-4 bg-gradient-to-br from-white via-[#f8f5f0] to-white relative overflow-hidden">
+      <section id="about" className="py-4 bg-gradient-to-br from-[#f0ede9] via-[#f5f2ed] to-[#f0ede9] relative overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-[#8B4513]/5 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2c3e50]/5 rounded-full blur-3xl -z-10"></div>
