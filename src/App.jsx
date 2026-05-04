@@ -1,105 +1,94 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
-      <section id="center" className="flex flex-col gap-6 place-content-center place-items-center flex-grow px-5">
-        <div className="hero relative">
-          <img src={heroImg} className="base w-[170px] mx-auto" alt="" />
-          <img src={reactLogo} className="framework absolute z-1 top-8 h-7 left-0 right-0 mx-auto" alt="React logo" style={{transform: 'perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg) scale(1.4)'}} />
-          <img src={viteLogo} className="vite absolute z-0 top-24 h-6 w-auto left-0 right-0 mx-auto" alt="Vite logo" style={{transform: 'perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg) scale(0.8)'}} />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+      {/* Hero Section */}
+      <section className="flex flex-col items-center justify-center py-12 px-4 text-center">
+        <div className="flex items-center gap-4 mb-8">
+          <img src={viteLogo} className="h-16 w-16 animate-spin" alt="Vite logo" />
+          <span className="text-5xl font-bold text-gray-800 dark:text-white">+</span>
+          <img src={reactLogo} className="h-16 w-16" alt="React logo" />
         </div>
-        <div>
-          <h1 className="text-4xl md:text-5xl font-medium text-gray-900 dark:text-gray-100 mt-8 mb-8 tracking-tight">Get started</h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Edit <code className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">src/App.jsx</code> and save to test <code className="font-mono bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">HMR</code>
-          </p>
-        </div>
+        
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+          Vite + React + Tailwind
+        </h1>
+        
+        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-md">
+          A fresh React project with Tailwind CSS configured and ready to go!
+        </p>
+        
         <button
           type="button"
-          className="counter font-mono text-sm px-4 py-2 rounded bg-purple-100 text-purple-600 hover:border-purple-300 border-2 border-transparent transition-colors dark:bg-purple-900/30 dark:text-purple-300"
+          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
           onClick={() => setCount((count) => count + 1)}
         >
           Count is {count}
         </button>
       </section>
 
-      <div className="ticks"></div>
+      {/* Cards Section */}
+      <section className="max-w-4xl mx-auto px-4 pb-12">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+          Tailwind CSS Features
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-xl">
+            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fast Development</h3>
+            <p className="text-gray-600 dark:text-gray-300">Rapidly build modern websites with utility classes.</p>
+          </div>
 
-      <section id="next-steps" className="flex border-t border-gray-200 dark:border-gray-700 text-left">
-        <div id="docs" className="flex-1 p-8 border-r border-gray-200 dark:border-gray-700 md:border-r-0 md:border-b">
-          <svg className="icon mb-4 w-5 h-5" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2 className="text-xl font-medium text-gray-900 dark:text-gray-100 mb-2">Documentation</h2>
-          <p className="text-gray-600 dark:text-gray-400">Your questions, answered</p>
-          <ul className="list-none p-0 flex gap-2 mt-8">
-            <li>
-              <a href="https://vite.dev/" target="_blank" className="text-gray-900 dark:text-gray-100 text-sm rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center gap-2 no-underline hover:shadow-md transition-shadow">
-                <img className="logo h-4" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank" className="text-gray-900 dark:text-gray-100 text-sm rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center gap-2 no-underline hover:shadow-md transition-shadow">
-                <img className="button-icon h-4 w-4" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social" className="flex-1 p-8">
-          <svg className="icon mb-4 w-5 h-5" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2 className="text-xl font-medium text-gray-900 dark:text-gray-100 mb-2">Connect with us</h2>
-          <p className="text-gray-600 dark:text-gray-400">Join the Vite community</p>
-          <ul className="list-none p-0 flex gap-2 mt-8">
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank" className="text-gray-900 dark:text-gray-100 text-sm rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center gap-2 no-underline hover:shadow-md transition-shadow">
-                <svg className="button-icon h-4 w-4" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank" className="text-gray-900 dark:text-gray-100 text-sm rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center gap-2 no-underline hover:shadow-md transition-shadow">
-                <svg className="button-icon h-4 w-4" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank" className="text-gray-900 dark:text-gray-100 text-sm rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center gap-2 no-underline hover:shadow-md transition-shadow">
-                <svg className="button-icon h-4 w-4" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank" className="text-gray-900 dark:text-gray-100 text-sm rounded bg-gray-100 dark:bg-gray-800 px-3 py-2 flex items-center gap-2 no-underline hover:shadow-md transition-shadow">
-                <svg className="button-icon h-4 w-4" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+          {/* Card 2 */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-xl">
+            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Responsive Design</h3>
+            <p className="text-gray-600 dark:text-gray-300">Built-in responsive utilities for all screen sizes.</p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-xl">
+            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Dark Mode</h3>
+            <p className="text-gray-600 dark:text-gray-300">Seamlessly switch between light and dark themes.</p>
+          </div>
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer" className="h-22 border-t border-gray-200 dark:border-gray-700 md:h-12"></section>
-    </>
+      {/* Alert Banner */}
+      <section className="max-w-4xl mx-auto px-4 pb-12">
+        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white text-center">
+          <h3 className="text-xl font-bold mb-2">🎉 Tailwind CSS is Working!</h3>
+          <p className="mb-4">Check the cards above - they demonstrate responsive grid, dark mode, and interactive states.</p>
+          <div className="flex flex-wrap gap-2 justify-center">
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Utility Classes</span>
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Dark Mode</span>
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Responsive</span>
+            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Animations</span>
+          </div>
+        </div>
+      </section>
+    </div>
   )
 }
 

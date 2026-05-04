@@ -6,14 +6,7 @@ export default {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        accent: {
-          DEFAULT: '#aa3bff',
-          dark: '#c084fc',
-        },
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }
