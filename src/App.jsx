@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
+import { auth } from './lib/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import Dashboard from './components/Dashboard.jsx'
@@ -12,7 +14,8 @@ const ministryImage = new URL('./assets/images/Ministry.png', import.meta.url).h
 const churchInsideImage = new URL('./assets/images/Perpetual Church Inside.png', import.meta.url).href
 
 
-function App() {
+function Home() {
+  const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(true)
 
@@ -45,13 +48,15 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) navigate('/dashboard')
+    })
+    return unsubscribe
+  }, [navigate])
+
   return (
-    <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      <Route path="/" element={
-        <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
+    <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
       {/* Header */}
       <header id="main-header" className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300 ${headerVisible ? '' : '-translate-y-full'}`}>
         <div className="max-w-7xl mx-auto px-4">
@@ -707,7 +712,16 @@ function App() {
         </div>
       </footer>
         </div>
-      } />
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/" element={<Home />} />
     </Routes>
   )
 }
