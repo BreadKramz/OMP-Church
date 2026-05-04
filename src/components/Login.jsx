@@ -1,15 +1,20 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
 function Login() {
+  const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   })
+
+  const [showPassword, setShowPassword] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -27,8 +32,7 @@ function Login() {
     if (error) {
       alert(error.message)
     } else {
-      alert('Login successful!')
-      // You can add navigation or state update here
+      setShowModal(true)
     }
   }
 
@@ -128,15 +132,24 @@ function Login() {
 
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="w-full px-4 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-              placeholder="Enter your password"
-              required
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                className="w-full px-4 py-1.5 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                placeholder="Enter your password"
+                required
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
+              >
+                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-xs`}></i>
+              </button>
+            </div>
           </div>
 
           <button
@@ -157,6 +170,22 @@ function Login() {
         </div>
           </div>
         </div>
+
+        {/* Success Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-4">
+              <h3 className="text-lg font-bold text-[#2c3e50] mb-2">Login Successful</h3>
+              <p className="text-gray-600 mb-4">Redirecting to your account...</p>
+              <button
+                onClick={() => { setShowModal(false); navigate('/'); }}
+                className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#8B4513]/90 transition-all"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Footer */}
         <footer className="absolute bottom-0 left-0 right-0 bg-[#2c3e50] text-white py-4 shadow-inner">
