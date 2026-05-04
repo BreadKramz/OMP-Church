@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 const logoImage = new URL('./assets/images/Perpetual Church Logo.png', import.meta.url).href
@@ -14,6 +14,20 @@ const priestImages = {
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (e.target.matches('a[href^="#"]')) {
+        e.preventDefault()
+        const target = document.querySelector(e.target.getAttribute('href'))
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    }
+    document.addEventListener('click', handleClick)
+    return () => document.removeEventListener('click', handleClick)
+  }, [])
 
   return (
     <div className="font-body bg-gray-50 text-gray-900 scroll-smooth">
