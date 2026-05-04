@@ -1,93 +1,805 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
+    <div className="font-body bg-gray-50 text-gray-900">
+      {/* Header */}
+      <header id="main-header" className="fixed top-0 left-0 right-0 z-50 bg-white shadow-lg border-b border-gray-100 transition-transform duration-300">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-center items-center h-20">
+            {/* Mobile Header */}
+            <div className="flex lg:hidden items-center gap-3">
+              <div className="w-10 h-10 bg-[#8B4513] rounded-full flex items-center justify-center text-white shadow-lg overflow-hidden flex-shrink-0">
+                <img src="/src/assets/images/Perpetual Church Logo.png" alt="Church Logo" className="w-full h-full rounded-full object-cover" />
+              </div>
+              <div className="min-w-0">
+                <h1 className="text-base font-display text-[#8B4513] font-bold leading-tight truncate">Our Mother of Perpetual Help</h1>
+                <p className="text-sm text-gray-600 truncate">Redemptorist Church • Dumaguete City</p>
+              </div>
+              <button 
+                className="text-2xl text-[#8B4513] p-2 hover:bg-[#8B4513]/10 rounded-md transition-all"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <i className="fas fa-bars"></i>
+              </button>
+            </div>
+
+            {/* Desktop Header */}
+            <nav className="hidden lg:flex items-center justify-between w-full">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-[#8B4513] rounded-full flex items-center justify-center text-white text-2xl shadow-lg overflow-hidden">
+                  <img src="/src/assets/images/Perpetual Church Logo.png" alt="Church Logo" className="w-full h-full rounded-full object-cover" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-display text-[#8B4513] font-bold leading-tight">Our Mother of Perpetual Help</h1>
+                  <p className="text-xs text-gray-600">Redemptorist Church • Dumaguete City</p>
+                </div>
+              </div>
+              <ul className="flex items-center gap-6 text-sm">
+                <li><a href="#home" className="font-medium text-gray-700 hover:text-[#8B4513] transition-colors">Home</a></li>
+                <li className="text-gray-400">|</li>
+                <li><a href="#about" className="font-medium text-gray-700 hover:text-[#8B4513] transition-colors">About Us</a></li>
+                <li className="text-gray-400">|</li>
+                <li><a href="#ministries" className="font-medium text-gray-700 hover:text-[#8B4513] transition-colors">Ministries</a></li>
+                <li className="text-gray-400">|</li>
+                <li><a href="#events" className="font-medium text-gray-700 hover:text-[#8B4513] transition-colors">Events</a></li>
+                <li className="text-gray-400">|</li>
+                <li><a href="#services" className="font-medium text-gray-700 hover:text-[#8B4513] transition-colors">Services</a></li>
+                <li className="text-gray-400">|</li>
+                <li><a href="#contact" className="font-medium text-gray-700 hover:text-[#8B4513] transition-colors">Contact Us</a></li>
+                <li className="ml-4"><a href="/register" className="bg-[#8B4513] text-white px-6 py-2 rounded-full font-medium hover:bg-[#8B4513]/90 transition-all shadow-lg">Sign Up</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-white border-t border-gray-100 shadow-lg">
+            <div className="px-4 py-4 space-y-1">
+              <a href="#home" className="flex items-center gap-3 font-medium text-gray-700 hover:bg-[#8B4513]/5 rounded-lg py-2 px-2" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-home text-[#8B4513]"></i><span>Home</span>
+              </a>
+              <a href="#about" className="flex items-center gap-3 font-medium text-gray-700 hover:bg-[#8B4513]/5 rounded-lg py-2 px-2" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-church text-[#8B4513]"></i><span>About Us</span>
+              </a>
+              <a href="#ministries" className="flex items-center gap-3 font-medium text-gray-700 hover:bg-[#8B4513]/5 rounded-lg py-2 px-2" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-hands-helping text-[#8B4513]"></i><span>Ministries</span>
+              </a>
+              <a href="#events" className="flex items-center gap-3 font-medium text-gray-700 hover:bg-[#8B4513]/5 rounded-lg py-2 px-2" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-calendar-alt text-[#8B4513]"></i><span>Events</span>
+              </a>
+              <a href="#services" className="flex items-center gap-3 font-medium text-gray-700 hover:bg-[#8B4513]/5 rounded-lg py-2 px-2" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-certificate text-[#8B4513]"></i><span>Services</span>
+              </a>
+              <a href="#contact" className="flex items-center gap-3 font-medium text-gray-700 hover:bg-[#8B4513]/5 rounded-lg py-2 px-2" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-envelope text-[#8B4513]"></i><span>Contact Us</span>
+              </a>
+              <div className="border-t border-gray-100 my-2"></div>
+              <a href="/register" className="flex items-center justify-center gap-2 bg-[#8B4513] text-white rounded-full py-2">
+                <i className="fas fa-user-plus"></i><span>Sign Up</span>
+              </a>
+            </div>
+          </div>
+        )}
+      </header>
+
       {/* Hero Section */}
-      <section className="flex flex-col items-center justify-center py-12 px-4 text-center">
-        <div className="flex items-center gap-4 mb-8">
-          <img src={viteLogo} className="h-16 w-16 animate-spin" alt="Vite logo" />
-          <span className="text-5xl font-bold text-gray-800 dark:text-white">+</span>
-          <img src={reactLogo} className="h-16 w-16" alt="React logo" />
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+        <div className="absolute inset-0">
+          <img src="/src/assets/images/Perpetual Church.png" alt="Our Mother of Perpetual Help Redemptorist Church" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
         </div>
-        
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-          Vite + React + Tailwind
-        </h1>
-        
-        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-md">
-          A fresh React project with Tailwind CSS configured and ready to go!
-        </p>
-        
-        <button
-          type="button"
-          className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-[#8B4513]/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-96 sm:h-96 bg-[#2c3e50]/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-48 sm:h-48 bg-[#34495e]/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4">
+          {/* Mobile Layout */}
+          <div className="block lg:hidden space-y-2">
+            <div className="text-center space-y-1">
+              <h1 className="text-2xl font-display font-bold text-[#8B4513] leading-tight drop-shadow-2xl">
+                Our Mother of Perpetual Help
+              </h1>
+              <h2 className="text-xs font-display font-light text-white/95 drop-shadow-xl">
+                Redemptorist Church • Dumaguete City
+              </h2>
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
+                <div className="w-1.5 h-1.5 bg-[#8B4513] rounded-full shadow-sm"></div>
+                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
+              </div>
+            </div>
+
+            {/* Mobile Services */}
+            <div className="space-y-1.5">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-lg">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-[#8B4513] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+                    <i className="fas fa-cross text-xs"></i>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-bold text-xs">Sacramental Services</h4>
+                  </div>
+                  <a href="#services" className="bg-[#8B4513] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#8B4513]/90 transition-all shadow-lg">
+                    <i className="fas fa-arrow-right text-xs"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-lg">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-[#2c3e50] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+                    <i className="fas fa-file-alt text-xs"></i>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-bold text-xs">Church Certificates</h4>
+                  </div>
+                  <a href="#services" className="bg-[#2c3e50] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#2c3e50]/90 transition-all shadow-lg">
+                    <i className="fas fa-arrow-right text-xs"></i>
+                  </a>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-lg">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-[#34495e] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+                    <i className="fas fa-users text-xs"></i>
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-white font-bold text-xs">Community & Ministries</h4>
+                  </div>
+                  <a href="#ministries" className="bg-[#34495e] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#34495e]/90 transition-all shadow-lg">
+                    <i className="fas fa-arrow-right text-xs"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Mobile Mass Schedule */}
+            <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 shadow-lg">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+                  <i className="fas fa-clock text-sm"></i>
+                </div>
+                <div>
+                  <h4 className="text-white font-bold text-base">Mass Schedule</h4>
+                  <p className="text-white/90 text-xs">Daily Mass Times & Services</p>
+                </div>
+              </div>
+
+              <div className="space-y-2 text-xs text-white/90">
+                <div className="bg-white/5 rounded p-2 border border-white/10">
+                  <div className="font-semibold mb-1 text-yellow-300 flex items-center gap-1">
+                    <i className="fas fa-sun text-xs"></i>
+                    Sunday
+                  </div>
+                  <div className="space-y-0.5">
+                    <div>6AM Cebuano • 8AM English • 10AM English</div>
+                    <div>3PM Cebuano • 5PM English • 7PM English</div>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 rounded p-2 border border-white/10">
+                  <div className="font-semibold mb-1 text-blue-300 flex items-center gap-1">
+                    <i className="fas fa-calendar-week text-xs"></i>
+                    Weekday
+                  </div>
+                  <div className="space-y-0.5">
+                    <div>6AM (MWF Eng, TTH Ceb)</div>
+                    <div>5:45PM English Daily</div>
+                  </div>
+                </div>
+
+                <div className="bg-white/5 rounded p-2 border border-white/10">
+                  <div className="font-semibold mb-1 text-purple-300 flex items-center gap-1">
+                    <i className="fas fa-praying-hands text-xs"></i>
+                    Confessions
+                  </div>
+                  <div>Wed 3-6PM • Tue/Thu/Fri/Sat 5-6PM</div>
+                </div>
+
+                <div className="bg-white/5 rounded p-2 border border-white/10">
+                  <div className="font-semibold mb-1 text-pink-300 flex items-center gap-1">
+                    <i className="fas fa-church text-xs"></i>
+                    Novenas
+                  </div>
+                  <div>Wed 6AM Eng • 3:30PM Ceb • 5:45PM Eng</div>
+                </div>
+
+                <div className="bg-white/5 rounded p-2 border border-white/10">
+                  <div className="font-semibold mb-1 text-green-300 flex items-center gap-1">
+                    <i className="fas fa-clock text-xs"></i>
+                    Office Hours
+                  </div>
+                  <div>Mon-Sun: 8:30AM-12NN, 1:30PM-5PM</div>
+                </div>
+              </div>
+
+              <div className="text-center mt-3">
+                <p className="text-xs text-white/90 italic bg-white/10 rounded px-2 py-1 border border-white/20">
+                  For Weddings, Funerals & Other Services visit parish office
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Desktop Layout */}
+          <div className="hidden lg:grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
+            <div className="lg:col-span-2 space-y-4">
+              <div className="space-y-3">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-[#8B4513] leading-tight drop-shadow-2xl">
+                  Our Mother of Perpetual Help
+                </h1>
+                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-display font-light text-white/90 drop-shadow-lg">
+                  Redemptorist Church • Dumaguete City
+                </h2>
+                <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-[#8B4513] rounded-full"></div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-[#8B4513] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                      <i className="fas fa-cross"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1">Sacramental Services</h4>
+                      <p className="text-white/90 text-xs leading-relaxed">Baptism • Confirmation • Eucharist • Marriage • Anointing</p>
+                      <p className="text-white/70 text-xs mt-1">Experience God's grace through sacred sacraments</p>
+                    </div>
+                    <a href="#services" className="bg-[#8B4513] text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-[#8B4513]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
+                      <i className="fas fa-arrow-right text-xs"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-[#2c3e50] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                      <i className="fas fa-file-alt"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1">Church Certificates</h4>
+                      <p className="text-white/90 text-xs leading-relaxed">Confirmation • Mass Cards • Marriage • Funeral</p>
+                      <p className="text-white/70 text-xs mt-1">Official documentation for your spiritual journey</p>
+                    </div>
+                    <a href="#services" className="bg-[#2c3e50] text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-[#2c3e50]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
+                      <i className="fas fa-arrow-right text-xs"></i>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-[#34495e] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                      <i className="fas fa-users"></i>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1">Community & Ministries</h4>
+                      <p className="text-white/90 text-xs leading-relaxed">Youth Programs • Charity • Fellowship Groups</p>
+                      <p className="text-white/70 text-xs mt-1">Connect and serve with fellow parishioners</p>
+                    </div>
+                    <a href="#ministries" className="bg-[#34495e] text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-[#34495e]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
+                      <i className="fas fa-arrow-right text-xs"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-3 space-y-4">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 shadow-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                    <i className="fas fa-clock"></i>
+                  </div>
+                  <div>
+                    <h4 className="text-white font-bold text-sm drop-shadow-md">Mass Schedule</h4>
+                    <p className="text-white/80 text-xs">Daily Mass Times & Services</p>
+                  </div>
+                </div>
+                <div className="space-y-2 text-xs text-white/90">
+                  <div className="bg-white/5 rounded p-2 border border-white/10">
+                    <div className="font-medium mb-1 text-yellow-300">Sunday Masses:</div>
+                    <div className="text-xs space-y-0.5">
+                      <div>6AM Cebuano • 8AM English • 10AM English</div>
+                      <div>3PM Cebuano • 5PM English • 7PM English</div>
+                    </div>
+                  </div>
+                  <div className="bg-white/5 rounded p-2 border border-white/10">
+                    <div className="font-medium mb-1 text-blue-300">Weekday Masses:</div>
+                    <div className="text-xs space-y-0.5">
+                      <div>6AM (MWF English, TTH Cebuano)</div>
+                      <div>5:45PM English Daily</div>
+                    </div>
+                  </div>
+                  <div className="bg-white/5 rounded p-2 border border-white/10">
+                    <div className="font-medium mb-1 text-purple-300">Confessions:</div>
+                    <div className="text-xs space-y-0.5">
+                      <div>Wed 3-6PM • Tue/Thu/Fri/Sat 5-6PM</div>
+                    </div>
+                  </div>
+                  <div className="bg-white/5 rounded p-2 border border-white/10">
+                    <div className="font-medium mb-1 text-pink-300">Novenas:</div>
+                    <div className="text-xs space-y-0.5">
+                      <div>Wed 6AM English • 3:30PM Cebuano • 5:45PM English</div>
+                    </div>
+                  </div>
+                  <div className="bg-white/5 rounded p-2 border border-white/10">
+                    <div className="font-medium mb-1 text-green-300">Office Hours:</div>
+                    <div className="text-xs space-y-0.5">
+                      <div>Mon-Sun: 8:30AM-12NN, 1:30PM-5PM</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-2 text-center">
+                  <p className="text-xs text-white/80 italic bg-white/10 rounded px-2 py-1 border border-white/20">
+                    For Weddings, Funerals & Other Services Please visit the parish office
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
       </section>
 
-      {/* Cards Section */}
-      <section className="max-w-4xl mx-auto px-4 pb-12">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-          Tailwind CSS Features
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1 */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-xl">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+      {/* About */}
+      <section id="about" className="py-6 bg-gradient-to-br from-white via-primary/5 to-secondary/10 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full mb-3 border border-primary/30">
+              <div className="w-5 h-5 bg-[#8B4513] rounded-full flex items-center justify-center">
+                <i className="fas fa-church text-white text-xs"></i>
+              </div>
+              <span className="text-[#8B4513] font-bold text-xs uppercase tracking-wide">About Our Parish</span>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Fast Development</h3>
-            <p className="text-gray-600 dark:text-gray-300">Rapidly build modern websites with utility classes.</p>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-[#2c3e50] mb-2">Our Sacred Story</h2>
+            <p className="text-sm text-gray-700 max-w-2xl mx-auto">Discover the heart and soul of Our Mother of Perpetual Help Redemptorist Church</p>
           </div>
 
-          {/* Card 2 */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-xl">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
+          <div className="grid lg:grid-cols-2 gap-6 items-start">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl bg-white border-2 border-white">
+              <img src="/src/assets/images/Mother-of-Perpetual-Help.png" alt="Our Lady of Perpetual Help" className="w-full h-80 object-cover" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Responsive Design</h3>
-            <p className="text-gray-600 dark:text-gray-300">Built-in responsive utilities for all screen sizes.</p>
+
+            <div className="space-y-4">
+              <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-white/50 h-80 flex flex-col">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary/80 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                    <i className="fas fa-history text-sm"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-base font-display font-bold text-[#2c3e50]">A Legacy of Faith</h3>
+                    <p className="text-gray-600 text-sm">Founded in 1974 by the Redemptorist Fathers</p>
+                  </div>
+                </div>
+
+                <div className="flex-1 space-y-3">
+                  <p className="text-gray-700 leading-relaxed text-sm">
+                    Our Mother of Perpetual Help Redemptorist Church has been a beacon of faith and community in Dumaguete City for nearly five decades, serving as a spiritual home for thousands of families through sacraments, education, and charitable works that reflect Christ's love for all people.
+                  </p>
+
+                  <div className="bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-lg p-3 border border-primary/30">
+                    <p className="text-gray-800 italic text-xs leading-relaxed text-center">
+                      "We are called to be a community of faith, hope, and love, serving God and our neighbors with compassion and dedication."
+                    </p>
+                    <div className="text-xs text-[#8B4513] font-bold mt-1 text-center">- Our Parish Mission</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Card 3 */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 hover:shadow-xl">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center mb-4">
-              <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2H7a2 2 0 00-2 2v4a2 2 0 002 2z" />
-              </svg>
+          <div className="mt-8">
+            <div className="text-center mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B4513]/10 backdrop-blur-sm rounded-full mb-3 border border-primary/20">
+                <div className="w-4 h-4 bg-[#8B4513] rounded-full flex items-center justify-center">
+                  <i className="fas fa-user-tie text-white text-xs"></i>
+                </div>
+                <span className="text-[#8B4513] font-bold text-xs uppercase tracking-wide">Our Priests</span>
+              </div>
+              <h3 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2">Spiritual Leaders & Guides</h3>
+              <p className="text-sm text-gray-600 max-w-xl mx-auto">Meet the dedicated priests who serve our parish community with wisdom, compassion, and spiritual guidance.</p>
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Dark Mode</h3>
-            <p className="text-gray-600 dark:text-gray-300">Seamlessly switch between light and dark themes.</p>
+
+            <div className="grid md:grid-cols-3 gap-4">
+              {['Fr. Gaspe', 'Fr. James', 'Fr. Eliodoro'].map((name, i) => (
+                <div key={i} className="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-3 shadow-lg overflow-hidden">
+                    <img src={`/src/assets/images/${name.replace('.', '._')}.png`} alt={name} className="w-full h-full object-cover" />
+                  </div>
+                  <h4 className="text-base font-display font-bold text-[#2c3e50] mb-1">{name}</h4>
+                  <p className="text-xs text-gray-600 mb-2">Parish Priest</p>
+                  <p className="text-xs text-gray-500 leading-relaxed">Leading our parish with dedication and spiritual wisdom, guiding our community in faith and service.</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Alert Banner */}
-      <section className="max-w-4xl mx-auto px-4 pb-12">
-        <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-6 text-white text-center">
-          <h3 className="text-xl font-bold mb-2">🎉 Tailwind CSS is Working!</h3>
-          <p className="mb-4">Check the cards above - they demonstrate responsive grid, dark mode, and interactive states.</p>
-          <div className="flex flex-wrap gap-2 justify-center">
-            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Utility Classes</span>
-            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Dark Mode</span>
-            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Responsive</span>
-            <span className="px-3 py-1 bg-white/20 rounded-full text-sm">Animations</span>
+      {/* Ministries */}
+      <section id="ministries" className="py-4 bg-gradient-to-br from-secondary/5 via-white to-primary/5 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 right-20 w-40 h-40 border-2 border-primary/30 rounded-full"></div>
+          <div className="absolute bottom-10 left-10 w-28 h-28 border-2 border-secondary/30 rounded-full"></div>
+          <div className="absolute top-1/3 right-1/4 w-20 h-20 border-2 border-accent/30 rounded-full"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#2c3e50]/10 backdrop-blur-sm rounded-full mb-2 border border-secondary/20">
+              <i className="fas fa-hands-helping text-[#2c3e50] text-xs"></i>
+              <span className="text-[#2c3e50] font-semibold text-xs uppercase tracking-wide">Our Ministries</span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2">Serve with Purpose</h2>
+            <p className="text-sm text-gray-600 max-w-xl mx-auto">Discover ways to serve God and our community</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-4 items-center mb-4">
+            <div className="space-y-3">
+              <div>
+                <h3 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2">Make a Difference</h3>
+                <p className="text-sm text-gray-700 mb-2 leading-relaxed">
+                  Our ministries provide opportunities for every parishioner to use their unique gifts and talents in service to God and our community.
+                </p>
+              </div>
+
+              <div className="bg-gradient-to-r from-secondary/10 via-primary/10 to-accent/10 rounded-lg p-3 border border-secondary/20">
+                <p className="text-gray-700 italic text-sm leading-relaxed font-medium text-center">
+                  "For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do." - Ephesians 2:10
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex items-center gap-2 p-2 bg-white rounded-lg shadow border border-gray-100">
+                  <div className="w-6 h-6 bg-[#8B4513]/10 rounded-full flex items-center justify-center">
+                    <i className="fas fa-users text-[#8B4513] text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800 text-xs">Community Impact</h4>
+                    <p className="text-gray-600 text-xs">Serving 2,000+ people annually</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 p-2 bg-white rounded-lg shadow border border-gray-100">
+                  <div className="w-6 h-6 bg-[#2c3e50]/10 rounded-full flex items-center justify-center">
+                    <i className="fas fa-heart text-[#2c3e50] text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-gray-800 text-xs">Spiritual Growth</h4>
+                    <p className="text-gray-600 text-xs">Faith through prayer & study</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl bg-white border-2 border-white transform hover:scale-105 transition-all duration-500">
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary/20 via-transparent to-primary/20"></div>
+                <img src="/src/assets/images/Ministry.png" alt="Community Service and Ministry Work" className="w-full h-48 lg:h-64 object-cover relative z-10" />
+
+                <div className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg border border-secondary/20">
+                  <i className="fas fa-hands-helping text-[#2c3e50] text-lg"></i>
+                </div>
+                <div className="absolute bottom-4 left-4 w-8 h-8 bg-[#2c3e50]/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
+                  <i className="fas fa-star text-white text-xs"></i>
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-2xl"></div>
+                <div className="absolute bottom-4 left-4 right-4 text-white">
+                  <h3 className="text-xl md:text-2xl font-display font-bold mb-2 text-shadow">Start Serving Today</h3>
+                  <p className="text-sm md:text-base opacity-95 font-medium mb-3">Step into a ministry that matches your gifts.</p>
+                  <a href="#contact" className="inline-flex items-center gap-2 bg-[#8B4513] text-white px-4 py-2 rounded-full font-bold text-sm hover:bg-[#8B4513]/90 transition-all duration-300 shadow-lg hover:shadow-xl">
+                    <i className="fas fa-envelope"></i>
+                    Contact Us
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { icon: 'fa-pray', title: 'Worship Ministry', desc: 'Liturgy, music, and sacrament preparation.', status: 'Active' },
+              { icon: 'fa-graduation-cap', title: 'Education Ministry', desc: 'Religious education and faith formation.', status: 'Growing' },
+              { icon: 'fa-hands-helping', title: 'Charity Ministry', desc: 'Outreach programs and support for those in need.', status: 'Essential' },
+              { icon: 'fa-users', title: 'Youth Ministry', desc: 'Programs for young people to grow in faith.', status: 'Vibrant' },
+            ].map((item, i) => (
+              <div key={i} className="group bg-white rounded-xl p-4 text-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                <div className={`w-12 h-12 ${i === 0 ? 'bg-[#8B4513]' : i === 1 ? 'bg-[#2c3e50]' : i === 2 ? 'bg-[#34495e]' : 'bg-green-600'} rounded-full flex items-center justify-center text-white text-lg mx-auto mb-3 shadow-lg`}>
+                  <i className={`fas ${item.icon}`}></i>
+                </div>
+                <h4 className="text-base font-display font-bold text-[#2c3e50] mb-2">{item.title}</h4>
+                <p className="text-gray-600 text-xs leading-relaxed mb-3">{item.desc}</p>
+                <span className={`inline-block px-2 py-1 rounded-full text-xs font-semibold ${
+                  i === 0 ? 'bg-[#8B4513]/10 text-[#8B4513]' :
+                  i === 1 ? 'bg-[#2c3e50]/10 text-[#2c3e50]' :
+                  i === 2 ? 'bg-[#34495e]/10 text-[#34495e]' :
+                  'bg-green-100 text-green-700'
+                }`}>
+                  {item.status}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* Events */}
+      <section id="events" className="relative pt-4 pb-3 overflow-hidden">
+        <div className="absolute inset-0">
+          <img src="/src/assets/images/Perpetual Church Inside.png" alt="Church Interior" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
+        </div>
+
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#8B4513]/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#2c3e50]/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#34495e]/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4">
+          <div className="text-center mb-3">
+            <div className="inline-block px-3 py-1 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 backdrop-blur-sm rounded-full mb-2 border border-white/20">
+              <span className="text-white font-semibold text-xs uppercase tracking-wide drop-shadow-sm">Events</span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#8B4513] mb-1 drop-shadow-lg">Our Events & Activities</h2>
+            <p className="text-sm text-white/95 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-4 items-center mb-4">
+            <div>
+              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3 drop-shadow-lg">Come Together in Faith</h3>
+              <p className="text-sm text-white/90 mb-3 leading-relaxed drop-shadow-md">
+                Our parish events bring our community together for worship, celebration, learning, and service. From solemn liturgies to joyful gatherings, there's always something happening.
+              </p>
+              <div className="bg-white/10 backdrop-blur-sm border-l-4 border-white/50 p-2 rounded-r-lg mb-2">
+                <p className="text-white/90 italic text-xs leading-relaxed">
+                  "For where two or three gather in my name, there am I with them." - Matthew 18:20
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <i className="fas fa-calendar-check text-white text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white text-xs drop-shadow-md">Regular Celebrations</h4>
+                    <p className="text-white/80 text-xs">Weekly masses & feasts</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                    <i className="fas fa-users text-white text-xs"></i>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-white text-xs drop-shadow-md">Community Building</h4>
+                    <p className="text-white/80 text-xs">Fellowship gatherings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { num: '50+', label: 'Events/Year', color: 'amber' },
+                { num: '2,000+', label: 'Participants', color: 'purple' },
+                { num: '12', label: 'Programs', color: 'emerald' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center">
+                  <div className={`w-12 h-12 bg-gradient-to-br from-${stat.color}-400/30 to-${stat.color}-500/30 backdrop-blur-sm rounded-full flex items-center justify-center text-${stat.color}-200 text-lg mx-auto mb-2 shadow-lg`}>
+                    <i className={`fas ${i === 0 ? 'fa-calendar-alt' : i === 1 ? 'fa-users' : 'fa-star'}`}></i>
+                  </div>
+                  <div className={`text-lg font-bold text-white mb-1 drop-shadow-lg`}>{stat.num}</div>
+                  <div className={`text-${stat.color}-300 font-medium text-xs`}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4">
+            {[
+              { title: 'Liturgical Celebrations', desc: 'Solemn masses, feast days, and special liturgical celebrations.', items: ['Sunday Masses', 'Feast Day Celebrations', 'Sacramental Events'], color: 'amber' },
+              { title: 'Community Gatherings', desc: 'Fellowship activities, social events, and community meals.', items: ['Parish Fiesta', 'Community Potlucks', 'Fellowship Events'], color: 'purple' },
+              { title: 'Educational Programs', desc: 'Learning opportunities, workshops, and faith formation sessions.', items: ['Bible Study Groups', 'Youth Programs', 'Adult Education'], color: 'emerald' },
+            ].map((event, i) => (
+              <div key={i} className={`bg-white/10 backdrop-blur-md rounded-xl p-4 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-${event.color}-400/40`}>
+                <div className={`w-12 h-12 bg-gradient-to-br from-${event.color}-400/30 to-${event.color}-500/30 backdrop-blur-sm rounded-full flex items-center justify-center text-${event.color}-200 text-lg mx-auto mb-3 shadow-lg`}>
+                  <i className={`fas ${i === 0 ? 'fa-pray' : i === 1 ? 'fa-users' : 'fa-graduation-cap'}`}></i>
+                </div>
+                <h4 className="text-base font-display font-bold text-white mb-2 drop-shadow-lg">{event.title}</h4>
+                <p className="text-white/90 text-sm leading-relaxed mb-3 drop-shadow-md">{event.desc}</p>
+                <ul className="text-left space-y-1 text-xs text-white/90">
+                  {event.items.map((item, j) => (
+                    <li key={j} className="flex items-center gap-1">
+                      <i className={`fas fa-check text-${event.color}-300 text-xs`}></i>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
+      <section id="services" className="pt-4 pb-6 bg-gradient-to-br from-secondary/5 via-white to-primary/5">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-4">
+            <div className="inline-block px-3 py-1 bg-[#8B4513]/10 rounded-full mb-2">
+              <span className="text-[#8B4513] font-semibold text-xs uppercase tracking-wide">Sacramental Services</span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2 leading-tight">Our Sacramental Services & Church Certificates</h2>
+            <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">Experience the sacraments of our faith and obtain official church certificates</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {[
+              { title: 'Sacramental Services', items: 'Baptism • Confirmation • Eucharist • Marriage • Anointing', desc: 'Experience God\'s grace through sacred sacraments' },
+              { title: 'Church Certificates', items: 'Confirmation • Mass Cards • Marriage • Funeral', desc: 'Official documentation for your spiritual journey' },
+              { title: 'Community & Ministries', items: 'Youth Programs • Charity • Fellowship Groups', desc: 'Connect and serve with fellow parishioners' },
+            ].map((service, i) => (
+              <div key={i} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 text-center aspect-square flex flex-col justify-center">
+                <div className={`w-16 h-16 ${i === 0 ? 'bg-[#8B4513]' : i === 1 ? 'bg-[#2c3e50]' : 'bg-[#34495e]'} rounded-full flex items-center justify-center text-white mx-auto mb-4 shadow-lg`}>
+                  <i className={`fas ${i === 0 ? 'fa-cross' : i === 1 ? 'fa-file-alt' : 'fa-users'} text-xl`}></i>
+                </div>
+                <h4 className="text-lg font-display font-bold text-[#2c3e50] mb-3">{service.title}</h4>
+                <p className="text-gray-700 text-sm mb-3 leading-relaxed">{service.items}</p>
+                <p className="text-gray-600 text-sm italic">{service.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-r from-primary via-primary/90 to-secondary rounded-xl p-4 text-center text-white shadow-lg">
+            <h3 className="text-lg md:text-xl font-display font-bold mb-2">To avail all these services, you can join us!</h3>
+            <p className="text-white/90 text-sm leading-relaxed mb-4 max-w-2xl mx-auto">
+              Become a member of our parish community and access all sacramental services, certificates, and church activities.
+              Create your account today and stay connected with our spiritual journey.
+            </p>
+            <a href="/register" className="inline-block bg-white text-[#8B4513] px-6 py-3 rounded-lg font-bold text-sm hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+              Sign Up Now
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="pt-4 pb-3 bg-gradient-to-br from-gray-50 via-white to-primary/5 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-20 w-32 h-32 border border-primary/20 rounded-full"></div>
+          <div className="absolute bottom-20 right-20 w-24 h-24 border border-secondary/20 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/3 w-16 h-16 border border-accent/20 rounded-full"></div>
+        </div>
+
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B4513]/10 backdrop-blur-sm rounded-full mb-2 border border-primary/20">
+              <i className="fas fa-envelope text-[#8B4513] text-xs"></i>
+              <span className="text-[#8B4513] font-semibold text-xs uppercase tracking-wide">Contact Us</span>
+            </div>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-1 leading-tight">Get In Touch</h2>
+            <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">We'd love to hear from you and welcome you to our parish community.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+            {[
+              { icon: 'fa-phone', title: 'Call Us', content: '225-4763 / 0916-144-9599' },
+              { icon: 'fa-envelope', title: 'Email Us', content: 'redsdgte@gmail.com', subtitle: '24hr response' },
+              { icon: 'fa-clock', title: 'Office Hours', content: 'Mon-Sun: 8:30AM-12NN, 1:30PM-5PM' },
+              { icon: 'fa-share-alt', title: 'Follow Us', content: 'Stay connected' },
+            ].map((contact, i) => (
+              <div key={i} className="bg-white rounded-xl p-3 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100">
+                <div className={`w-10 h-10 ${i === 0 ? 'bg-[#2c3e50]' : i === 1 ? 'bg-[#34495e]' : i === 2 ? 'bg-green-600' : 'bg-purple-600'} rounded-full flex items-center justify-center text-white text-sm mx-auto mb-2 shadow-lg`}>
+                  <i className={`fas ${contact.icon} text-sm`}></i>
+                </div>
+                <h3 className="text-sm font-display font-bold text-[#2c3e50] mb-1 text-center">{contact.title}</h3>
+                <div className="text-center text-gray-600 text-xs">
+                  {i === 3 ? (
+                    <div className="flex justify-center gap-2 mt-1">
+                      <a href="https://www.facebook.com/omphdumaguete" target="_blank" rel="noopener noreferrer" className="w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center text-white text-xs hover:bg-blue-700 transition-colors">
+                        <i className="fab fa-facebook-f text-xs"></i>
+                      </a>
+                    </div>
+                  ) : (
+                    <>
+                      <p className={`text-xs font-bold ${i === 1 ? 'text-[#34495e]' : ''}`}>{contact.content}</p>
+                      {contact.subtitle && <p className="text-xs text-gray-500 mt-1">{contact.subtitle}</p>}
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-3">
+            <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100">
+              <div className="text-center mb-2">
+                <h3 className="text-sm font-display font-bold text-[#2c3e50] mb-1">Send Us a Message</h3>
+                <p className="text-gray-600 text-xs">Have a question or need spiritual guidance? We're here to help.</p>
+              </div>
+              <form className="space-y-2">
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">Full Name *</label>
+                  <input type="text" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all" placeholder="Your full name" maxlength="100" pattern="[A-Za-z\s]+" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">Email Address *</label>
+                  <input type="email" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all" placeholder="your.email@example.com" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">Phone Number</label>
+                  <input type="tel" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all" placeholder="(035) 123-4567" pattern="[0-9\s\-\(\)\+]+" />
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">Subject *</label>
+                  <select className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all">
+                    <option value="">Select a subject</option>
+                    <option>Sacramental Services</option>
+                    <option>Ministry Opportunities</option>
+                    <option>Event Information</option>
+                    <option>Spiritual Guidance</option>
+                    <option>General Inquiry</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 mb-1">Message *</label>
+                  <textarea rows="2" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all resize-none" placeholder="Share your thoughts, questions, or prayer requests..." maxlength="500"></textarea>
+                  <div className="text-xs text-gray-400 mt-1">Maximum 500 characters</div>
+                </div>
+                <div className="text-center">
+                  <button type="submit" className="bg-[#8B4513] text-white px-3 py-1.5 rounded-full font-bold text-xs hover:bg-[#8B4513]/90 transition-all duration-300 shadow hover:shadow-md transform hover:-translate-y-0.5 inline-flex items-center gap-1">
+                    <i className="fas fa-paper-plane text-xs"></i>
+                    Send Message
+                  </button>
+                  <p className="text-xs text-gray-500 mt-1">We respect your privacy and will respond within 24 hours.</p>
+                </div>
+              </form>
+            </div>
+
+            <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100 overflow-hidden">
+              <h3 className="text-sm font-display font-bold text-[#2c3e50] mb-2 text-center">Find Us on the Map</h3>
+              <div className="aspect-video rounded-lg overflow-hidden">
+                <iframe
+                  src="https://maps.google.com/maps?q=Our%20Mother%20of%20Perpetual%20Help%20Redemptorist%20Church%20Dumaguete%20City&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{border: 0}}
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+              <div className="text-center mt-2">
+                <a href="https://maps.app.goo.gl/2JrDxHW47QVu5911A" target="_blank" className="inline-flex items-center gap-1 text-[#8B4513] font-medium hover:text-[#8B4513]/80 transition-colors text-xs">
+                  <i className="fas fa-external-link-alt"></i>
+                  Open in Google Maps
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-[#2c3e50] text-white py-4 shadow-inner">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p className="text-white/80 text-xs sm:text-sm tracking-wide">
+            &copy; 2025 Our Mother of Perpetual Help Redemptorist Church - Dumaguete. All rights reserved.
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }
