@@ -35,7 +35,12 @@ function Signup() {
       <header id="main-header" className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center h-16">
-            <div className="flex-1"></div>
+            <div className="flex-1 flex items-center">
+              <a href="/" className="inline-flex items-center gap-2 text-[#8B4513] font-medium hover:text-[#8B4513]/80 transition-colors text-sm">
+                <i className="fas fa-arrow-left text-xs"></i>
+                Back to Home
+              </a>
+            </div>
             {/* Logo & Branding */}
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#8B4513] to-[#A0522D] rounded-full flex items-center justify-center text-white shadow-lg overflow-hidden border-2 border-[#FFD700]/30">
@@ -99,12 +104,6 @@ function Signup() {
       <div className="min-h-screen relative py-8 px-4 pt-16">
         <div className="h-full flex items-start justify-center pt-12">
           <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
-        <div className="mb-4">
-          <a href="/" className="inline-flex items-center gap-2 text-[#8B4513] font-medium hover:text-[#8B4513]/80 transition-colors text-sm">
-            <i className="fas fa-arrow-left text-xs"></i>
-            Back to Home
-          </a>
-        </div>
         <div className="text-center mb-4">
           <h2 className="text-lg font-bold text-[#2c3e50] mb-1">Create Account</h2>
           <p className="text-gray-600 text-xs">Join Our Mother of Perpetual Help community</p>
