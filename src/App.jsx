@@ -203,7 +203,7 @@ function App() {
       </section>
 
       {/* About */}      {/* About */}
-      <section id="about" className="py-4 bg-gradient-to-br from-[#f0ede9] via-[#f5f2ed] to-[#f0ede9] relative overflow-hidden">
+      <section id="about" className="py-4 bg-gradient-to-br from-[#e8e5e1] via-[#edeae5] to-[#e8e5e1] relative overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-[#8B4513]/5 rounded-full blur-3xl -z-10"></div>
         <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2c3e50]/5 rounded-full blur-3xl -z-10"></div>
