@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { supabase } from '../lib/supabase'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -22,14 +23,27 @@ function Signup() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match')
       return
     }
-    // Handle signup logic here
-    console.log('Signup data:', formData)
+    const { error } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        data: {
+          full_name: formData.fullName,
+          phone: formData.phone
+        }
+      }
+    })
+    if (error) {
+      alert(error.message)
+    } else {
+      alert('Signup successful! Check your email for confirmation.')
+    }
   }
 
   return (

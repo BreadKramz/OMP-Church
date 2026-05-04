@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { supabase } from '../lib/supabase'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -17,10 +18,18 @@ function Login() {
     })
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle login logic here
-    console.log('Login data:', formData)
+    const { error } = await supabase.auth.signInWithPassword({
+      email: formData.email,
+      password: formData.password
+    })
+    if (error) {
+      alert(error.message)
+    } else {
+      alert('Login successful!')
+      // You can add navigation or state update here
+    }
   }
 
   return (
