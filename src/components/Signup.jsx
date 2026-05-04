@@ -98,13 +98,13 @@ function Signup() {
 
       <div className="min-h-screen relative py-8 px-4 pt-16">
         <div className="h-full flex items-center justify-center">
-          <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-6 mx-auto">
-        <div className="text-center mb-6">
-          <h2 className="text-xl font-bold text-[#2c3e50] mb-1">Create Account</h2>
-          <p className="text-gray-600 text-sm">Join Our Mother of Perpetual Help community</p>
+          <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
+        <div className="text-center mb-4">
+          <h2 className="text-lg font-bold text-[#2c3e50] mb-1">Create Account</h2>
+          <p className="text-gray-600 text-xs">Join Our Mother of Perpetual Help community</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
             <input
@@ -112,7 +112,7 @@ function Signup() {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Your full name"
               required
             />
@@ -125,7 +125,7 @@ function Signup() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="your.email@example.com"
               required
             />
@@ -138,7 +138,7 @@ function Signup() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Create a password"
               required
             />
@@ -151,7 +151,7 @@ function Signup() {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Confirm your password"
               required
             />
@@ -159,14 +159,14 @@ function Signup() {
 
           <button
             type="submit"
-            className="w-full bg-[#8B4513] text-white py-2 px-3 rounded-lg font-semibold transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-lg"
+            className="w-full bg-[#8B4513] text-white py-1.5 px-3 rounded-lg font-semibold transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-lg"
           >
             Create Account
           </button>
         </form>
 
-        <div className="text-center mt-4">
-          <p className="text-gray-600">
+        <div className="text-center mt-3">
+          <p className="text-gray-600 text-xs">
             Already have an account?{' '}
             <a href="/login" className="text-[#8B4513] font-semibold hover:underline">
               Sign in
