@@ -413,16 +413,16 @@ function App() {
             </div>
 
             <div className="grid md:grid-cols-3 gap-4">
-              {['Fr. Gaspe', 'Fr. James', 'Fr. Eliodoro'].map((name, i) => (
-                <div key={i} className="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-3 shadow-lg overflow-hidden">
-                    <img src={`/src/assets/images/${name.replace('.', '._')}.png`} alt={name} className="w-full h-full object-cover" />
-                  </div>
-                  <h4 className="text-base font-display font-bold text-[#2c3e50] mb-1">{name}</h4>
-                  <p className="text-xs text-gray-600 mb-2">Parish Priest</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">Leading our parish with dedication and spiritual wisdom, guiding our community in faith and service.</p>
-                </div>
-              ))}
+{['Fr. Gaspe', 'Fr. James', 'Fr. Eliodoro'].map((name, i) => (
+  <div key={i} className="bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 text-center">
+    <div className="w-20 h-20 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center text-white text-2xl mx-auto mb-3 shadow-lg overflow-hidden">
+      <img src={`/src/assets/images/${name.replace('. ', '._')}.png`} alt={name} className="w-full h-full object-cover" />
+    </div>
+    <h4 className="text-base font-display font-bold text-[#2c3e50] mb-1">{name}</h4>
+    <p className="text-xs text-gray-600 mb-2">Parish Priest</p>
+    <p className="text-xs text-gray-500 leading-relaxed">Leading our parish with dedication and spiritual wisdom, guiding our community in faith and service.</p>
+  </div>
+))}
             </div>
           </div>
         </div>
@@ -548,88 +548,88 @@ function App() {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-[#34495e]/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4">
-          <div className="text-center mb-3">
-            <div className="inline-block px-3 py-1 bg-gradient-to-r from-primary/30 via-secondary/30 to-accent/30 backdrop-blur-sm rounded-full mb-2 border border-white/20">
-              <span className="text-white font-semibold text-xs uppercase tracking-wide drop-shadow-sm">Events</span>
-            </div>
-            <h2 className="text-xl md:text-2xl font-display font-bold text-[#8B4513] mb-1 drop-shadow-lg">Our Events & Activities</h2>
-            <p className="text-sm text-white/95 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
-          </div>
+         <div className="relative z-10 max-w-6xl mx-auto px-4">
+           <div className="text-center mb-3">
+             <div className="inline-block px-3 py-1 bg-gradient-to-r from-[#8B4513]/80 via-[#A0522D]/60 to-[#CD853F]/70 backdrop-blur-sm rounded-full mb-2 border border-white/30">
+               <span className="text-white font-semibold text-xs uppercase tracking-wide drop-shadow-sm">Events</span>
+             </div>
+             <h2 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-1 drop-shadow-lg">Our Events & Activities</h2>
+             <p className="text-sm text-[#F5DEB3]/90 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
+           </div>
 
           <div className="grid lg:grid-cols-2 gap-4 items-center mb-4">
-            <div>
-              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3 drop-shadow-lg">Come Together in Faith</h3>
-              <p className="text-sm text-white/90 mb-3 leading-relaxed drop-shadow-md">
-                Our parish events bring our community together for worship, celebration, learning, and service. From solemn liturgies to joyful gatherings, there's always something happening.
-              </p>
-              <div className="bg-white/10 backdrop-blur-sm border-l-4 border-white/50 p-2 rounded-r-lg mb-2">
-                <p className="text-white/90 italic text-xs leading-relaxed">
-                  "For where two or three gather in my name, there am I with them." - Matthew 18:20
-                </p>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <i className="fas fa-calendar-check text-white text-xs"></i>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white text-xs drop-shadow-md">Regular Celebrations</h4>
-                    <p className="text-white/80 text-xs">Weekly masses & feasts</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                    <i className="fas fa-users text-white text-xs"></i>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-white text-xs drop-shadow-md">Community Building</h4>
-                    <p className="text-white/80 text-xs">Fellowship gatherings</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+           <div>
+             <h3 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-3 drop-shadow-lg">Come Together in Faith</h3>
+             <p className="text-sm text-[#F5DEB3]/90 mb-3 leading-relaxed drop-shadow-md">
+               Our parish events bring our community together for worship, celebration, learning, and service. From solemn liturgies to joyful gatherings, there's always something happening.
+             </p>
+             <div className="bg-white/10 backdrop-blur-sm border-l-4 border-[#F5DEB3] p-2 rounded-r-lg mb-2">
+               <p className="text-[#F5DEB3] italic text-xs leading-relaxed">
+                 "For where two or three gather in my name, there am I with them." - Matthew 18:20
+               </p>
+             </div>
+             <div className="grid grid-cols-2 gap-2">
+               <div className="flex items-center gap-2">
+                 <div className="w-6 h-6 bg-[#8B4513]/30 backdrop-blur-sm rounded-full flex items-center justify-center">
+                   <i className="fas fa-calendar-check text-[#F5DEB3] text-xs"></i>
+                 </div>
+                 <div>
+                   <h4 className="font-semibold text-[#F5DEB3] text-xs drop-shadow-md">Regular Celebrations</h4>
+                   <p className="text-[#F5DEB3]/80 text-xs">Weekly masses & feasts</p>
+                 </div>
+               </div>
+               <div className="flex items-center gap-2">
+                 <div className="w-6 h-6 bg-[#8B4513]/30 backdrop-blur-sm rounded-full flex items-center justify-center">
+                   <i className="fas fa-users text-[#F5DEB3] text-xs"></i>
+                 </div>
+                 <div>
+                   <h4 className="font-semibold text-[#F5DEB3] text-xs drop-shadow-md">Community Building</h4>
+                   <p className="text-[#F5DEB3]/80 text-xs">Fellowship gatherings</p>
+                 </div>
+               </div>
+             </div>
+           </div>
 
             <div className="grid grid-cols-3 gap-4">
               {[
-                { num: '50+', label: 'Events/Year', color: 'amber' },
-                { num: '2,000+', label: 'Participants', color: 'purple' },
-                { num: '12', label: 'Programs', color: 'emerald' },
+                { num: '50+', label: 'Events/Year', bgColor: 'bg-[#8B4513]/80', textColor: 'text-[#F5DEB3]' },
+                { num: '2,000+', label: 'Participants', bgColor: 'bg-[#2c3e50]/80', textColor: 'text-[#F5DEB3]' },
+                { num: '12', label: 'Programs', bgColor: 'bg-[#CD853F]/80', textColor: 'text-[#8B4513]' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
-                  <div className={`w-12 h-12 bg-gradient-to-br from-${stat.color}-400/30 to-${stat.color}-500/30 backdrop-blur-sm rounded-full flex items-center justify-center text-${stat.color}-200 text-lg mx-auto mb-2 shadow-lg`}>
+                  <div className={`w-12 h-12 ${stat.bgColor} backdrop-blur-sm rounded-full flex items-center justify-center text-white text-lg mx-auto mb-2 shadow-lg`}>
                     <i className={`fas ${i === 0 ? 'fa-calendar-alt' : i === 1 ? 'fa-users' : 'fa-star'}`}></i>
                   </div>
-                  <div className={`text-lg font-bold text-white mb-1 drop-shadow-lg`}>{stat.num}</div>
-                  <div className={`text-${stat.color}-300 font-medium text-xs`}>{stat.label}</div>
+                  <div className={`text-lg font-bold ${stat.textColor} mb-1 drop-shadow-lg`}>{stat.num}</div>
+                  <div className={`font-medium text-xs ${stat.textColor}`}>{stat.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
-            {[
-              { title: 'Liturgical Celebrations', desc: 'Solemn masses, feast days, and special liturgical celebrations.', items: ['Sunday Masses', 'Feast Day Celebrations', 'Sacramental Events'], color: 'amber' },
-              { title: 'Community Gatherings', desc: 'Fellowship activities, social events, and community meals.', items: ['Parish Fiesta', 'Community Potlucks', 'Fellowship Events'], color: 'purple' },
-              { title: 'Educational Programs', desc: 'Learning opportunities, workshops, and faith formation sessions.', items: ['Bible Study Groups', 'Youth Programs', 'Adult Education'], color: 'emerald' },
-            ].map((event, i) => (
-              <div key={i} className={`bg-white/10 backdrop-blur-md rounded-xl p-4 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border border-${event.color}-400/40`}>
-                <div className={`w-12 h-12 bg-gradient-to-br from-${event.color}-400/30 to-${event.color}-500/30 backdrop-blur-sm rounded-full flex items-center justify-center text-${event.color}-200 text-lg mx-auto mb-3 shadow-lg`}>
-                  <i className={`fas ${i === 0 ? 'fa-pray' : i === 1 ? 'fa-users' : 'fa-graduation-cap'}`}></i>
-                </div>
-                <h4 className="text-base font-display font-bold text-white mb-2 drop-shadow-lg">{event.title}</h4>
-                <p className="text-white/90 text-sm leading-relaxed mb-3 drop-shadow-md">{event.desc}</p>
-                <ul className="text-left space-y-1 text-xs text-white/90">
-                  {event.items.map((item, j) => (
-                    <li key={j} className="flex items-center gap-1">
-                      <i className={`fas fa-check text-${event.color}-300 text-xs`}></i>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+           <div className="grid md:grid-cols-3 gap-4">
+             {[
+               { title: 'Liturgical Celebrations', desc: 'Solemn masses, feast days, and special liturgical celebrations.', items: ['Sunday Masses', 'Feast Day Celebrations', 'Sacramental Events'], bgColor: 'bg-[#F5DEB3]/15', borderColor: 'border-[#8B4513]/30', iconBg: 'bg-[#8B4513]', checkColor: 'text-[#8B4513]' },
+               { title: 'Community Gatherings', desc: 'Fellowship activities, social events, and community meals.', items: ['Parish Fiesta', 'Community Potlucks', 'Fellowship Events'], bgColor: 'bg-[#F5DEB3]/10', borderColor: 'border-[#2c3e50]/30', iconBg: 'bg-[#2c3e50]', checkColor: 'text-[#2c3e50]' },
+               { title: 'Educational Programs', desc: 'Learning opportunities, workshops, and faith formation sessions.', items: ['Bible Study Groups', 'Youth Programs', 'Adult Education'], bgColor: 'bg-[#F5DEB3]/12', borderColor: 'border-[#CD853F]/30', iconBg: 'bg-[#CD853F]', checkColor: 'text-[#CD853F]' },
+             ].map((event, i) => (
+               <div key={i} className={`${event.bgColor} backdrop-blur-md rounded-xl p-4 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 border ${event.borderColor} hover:bg-opacity-20`}>
+                 <div className={`w-12 h-12 ${event.iconBg} backdrop-blur-sm rounded-full flex items-center justify-center text-white text-lg mx-auto mb-3 shadow-lg`}>
+                   <i className={`fas ${i === 0 ? 'fa-pray' : i === 1 ? 'fa-users' : 'fa-graduation-cap'}`}></i>
+                 </div>
+                 <h4 className="text-base font-display font-bold text-white mb-2 drop-shadow-lg">{event.title}</h4>
+                 <p className="text-white/90 text-sm leading-relaxed mb-3 drop-shadow-md">{event.desc}</p>
+                 <ul className="text-left space-y-1 text-xs text-white/80">
+                   {event.items.map((item, j) => (
+                     <li key={j} className="flex items-center gap-1">
+                       <i className={`fas fa-check ${event.checkColor} text-xs`}></i>
+                       <span>{item}</span>
+                     </li>
+                   ))}
+                 </ul>
+               </div>
+             ))}
+           </div>
         </div>
       </section>
 
@@ -661,16 +661,16 @@ function App() {
             ))}
           </div>
 
-          <div className="bg-gradient-to-r from-primary via-primary/90 to-secondary rounded-xl p-4 text-center text-white shadow-lg">
-            <h3 className="text-lg md:text-xl font-display font-bold mb-2">To avail all these services, you can join us!</h3>
-            <p className="text-white/90 text-sm leading-relaxed mb-4 max-w-2xl mx-auto">
-              Become a member of our parish community and access all sacramental services, certificates, and church activities.
-              Create your account today and stay connected with our spiritual journey.
-            </p>
-            <a href="/register" className="inline-block bg-white text-[#8B4513] px-6 py-3 rounded-lg font-bold text-sm hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
-              Sign Up Now
-            </a>
-          </div>
+           <div className="bg-gradient-to-r from-primary via-primary/90 to-secondary rounded-xl p-4 text-center shadow-lg">
+             <h3 className="text-lg md:text-xl font-display font-bold mb-2 text-black">To avail all these services, you can join us!</h3>
+             <p className="text-black text-sm leading-relaxed mb-4 max-w-2xl mx-auto">
+               Become a member of our parish community and access all sacramental services, certificates, and church activities.
+               Create your account today and stay connected with our spiritual journey.
+             </p>
+             <a href="/register" className="inline-block bg-white text-[#8B4513] px-6 py-3 rounded-lg font-bold text-sm hover:bg-white/90 transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+               Sign Up Now
+             </a>
+           </div>
         </div>
       </section>
 
@@ -731,7 +731,7 @@ function App() {
               <form className="space-y-2">
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1">Full Name *</label>
-                  <input type="text" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all" placeholder="Your full name" maxlength="100" pattern="[A-Za-z\s]+" />
+                  <input type="text" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all" placeholder="Your full name" maxLength="100" pattern="[A-Za-z\s]+" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1">Email Address *</label>
@@ -755,7 +755,7 @@ function App() {
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-gray-700 mb-1">Message *</label>
-                  <textarea rows="2" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all resize-none" placeholder="Share your thoughts, questions, or prayer requests..." maxlength="500"></textarea>
+                  <textarea rows="2" className="w-full px-2 py-1 text-xs border border-gray-300 rounded focus:ring-1 focus:ring-primary focus:border-transparent transition-all resize-none" placeholder="Share your thoughts, questions, or prayer requests..." maxLength="500"></textarea>
                   <div className="text-xs text-gray-400 mt-1">Maximum 500 characters</div>
                 </div>
                 <div className="text-center">
@@ -771,15 +771,15 @@ function App() {
             <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100 overflow-hidden">
               <h3 className="text-sm font-display font-bold text-[#2c3e50] mb-2 text-center">Find Us on the Map</h3>
               <div className="aspect-video rounded-lg overflow-hidden">
-                <iframe
-                  src="https://maps.google.com/maps?q=Our%20Mother%20of%20Perpetual%20Help%20Redemptorist%20Church%20Dumaguete%20City&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{border: 0}}
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
+<iframe
+  src="https://maps.google.com/maps?q=Our%20Mother%20of%20Perpetual%20Help%20Redemptorist%20Church%20Dumaguete%20City&t=&z=15&ie=UTF8&iwloc=&output=embed"
+  width="100%"
+  height="100%"
+  style={{border: 0}}
+  allowFullScreen=""
+  loading="lazy"
+  referrerPolicy="no-referrer-when-downgrade"
+></iframe>
               </div>
               <div className="text-center mt-2">
                 <a href="https://maps.app.goo.gl/2JrDxHW47QVu5911A" target="_blank" className="inline-flex items-center gap-1 text-[#8B4513] font-medium hover:text-[#8B4513]/80 transition-colors text-xs">
