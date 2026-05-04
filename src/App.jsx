@@ -249,9 +249,9 @@ function App() {
 
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#2c3e50]/10 backdrop-blur-sm rounded-full mb-2 border border-secondary/20">
-              <i className="fas fa-hands-helping text-[#2c3e50] text-xs"></i>
-              <span className="text-[#2c3e50] font-semibold text-xs uppercase tracking-wide">Our Ministries</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full mb-3 border-2 border-[#8B4513]/20 shadow-sm">
+              <i className="fas fa-hands-helping text-[#8B4513] text-sm"></i>
+              <span className="text-[#8B4513] font-bold text-xs uppercase tracking-widest">Our Ministries</span>
             </div>
             <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2">Serve with Love & Purpose</h2>
             <p className="text-sm text-gray-600 max-w-xl mx-auto">Discover meaningful ways to serve God, support our community, and grow in faith together</p>
@@ -361,9 +361,10 @@ function App() {
 
          <div className="relative z-10 max-w-6xl mx-auto px-4">
            <div className="text-center mb-3">
-             <div className="inline-block px-3 py-1 bg-gradient-to-r from-[#8B4513]/80 via-[#A0522D]/60 to-[#CD853F]/70 backdrop-blur-sm rounded-full mb-2 border border-white/30">
-               <span className="text-white font-semibold text-xs uppercase tracking-wide drop-shadow-sm">Events</span>
-             </div>
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full mb-3 border-2 border-[#8B4513]/20 shadow-sm">
+                <i className="fas fa-calendar-alt text-[#8B4513] text-sm"></i>
+                <span className="text-[#8B4513] font-bold text-xs uppercase tracking-widest">Events</span>
+              </div>
               <h2 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-1 drop-shadow-lg">Faith-Filled Events & Celebrations</h2>
              <p className="text-sm text-[#F5DEB3]/90 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
            </div>
@@ -454,9 +455,9 @@ function App() {
 
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B4513]/10 backdrop-blur-sm rounded-full mb-2 border border-primary/20">
-              <i className="fas fa-cross text-[#8B4513] text-xs"></i>
-              <span className="text-[#8B4513] font-semibold text-xs uppercase tracking-wide">Sacramental Services</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full mb-3 border-2 border-[#8B4513]/20 shadow-sm">
+              <i className="fas fa-cross text-[#8B4513] text-sm"></i>
+              <span className="text-[#8B4513] font-bold text-xs uppercase tracking-widest">Sacramental Services</span>
             </div>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-[#2c3e50] mb-2">Sacred Sacraments & Official Documents</h2>
             <p className="text-sm text-gray-600 max-w-2xl mx-auto">Graced sacraments, official church documents, and spiritual support for every stage of parish life.</p>
@@ -553,9 +554,9 @@ function App() {
 
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#8B4513]/10 backdrop-blur-sm rounded-full mb-2 border border-primary/20">
-              <i className="fas fa-envelope text-[#8B4513] text-xs"></i>
-              <span className="text-[#8B4513] font-semibold text-xs uppercase tracking-wide">Contact Us</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full mb-3 border-2 border-[#8B4513]/20 shadow-sm">
+              <i className="fas fa-envelope text-[#8B4513] text-sm"></i>
+              <span className="text-[#8B4513] font-bold text-xs uppercase tracking-widest">Contact Us</span>
             </div>
             <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-1 leading-tight">Connect With Our Community</h2>
             <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">Reach out to us - we're here to support your spiritual journey and welcome you into our loving community.</p>
