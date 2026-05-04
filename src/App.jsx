@@ -510,7 +510,7 @@ function App() {
                   { title: 'Confirmation', desc: 'Strengthening faith through the Holy Spirit.', status: 'Essential', icon: 'fa-dove' },
                   { title: 'Eucharist', desc: 'Life in the Body & Blood of Christ.', status: 'Central', icon: 'fa-bread-slice' },
                 ].map((service, i) => (
-                  <div key={i} className="bg-white rounded-3xl p-4 text-center border border-gray-100 shadow-sm">
+                  <div key={i} className="bg-white rounded-2xl p-3 text-center border border-gray-100 shadow-sm">
                     <div className={`w-11 h-11 mx-auto mb-3 rounded-full flex items-center justify-center text-white ${i === 0 ? 'bg-[#8B4513]' : i === 1 ? 'bg-[#2c3e50]' : i === 2 ? 'bg-[#34495e]' : i === 3 ? 'bg-green-600' : i === 4 ? 'bg-purple-600' : 'bg-blue-600'}`}>
                       <i className={`fas ${service.icon} text-sm`}></i>
                     </div>
