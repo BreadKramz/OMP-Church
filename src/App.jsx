@@ -16,8 +16,8 @@ function App() {
                 <img src="/src/assets/images/Perpetual Church Logo.png" alt="Church Logo" className="w-full h-full rounded-full object-cover" />
               </div>
               <div className="min-w-0">
-                <h1 className="text-base font-display text-[#8B4513] font-bold leading-tight truncate">Our Mother of Perpetual Help</h1>
-                <p className="text-sm text-gray-600 truncate">Redemptorist Church • Dumaguete City</p>
+                <h1 className="text-base font-serif text-[#8B4513] font-bold leading-tight truncate italic">Our Mother of Perpetual Help</h1>
+                <p className="text-sm font-serif text-gray-600 truncate italic">Redemptorist Parish • Dumaguete City</p>
               </div>
               <button 
                 className="text-2xl text-[#8B4513] p-2 hover:bg-[#8B4513]/10 rounded-md transition-all"
@@ -34,8 +34,8 @@ function App() {
                   <img src="/src/assets/images/Perpetual Church Logo.png" alt="Church Logo" className="w-full h-full rounded-full object-cover" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-display text-[#8B4513] font-bold leading-tight">Our Mother of Perpetual Help</h1>
-                  <p className="text-xs text-gray-600">Redemptorist Church • Dumaguete City</p>
+                  <h1 className="text-xl font-serif text-[#8B4513] font-bold leading-tight italic">Our Mother of Perpetual Help</h1>
+                  <p className="text-xs font-serif text-gray-600 italic">Redemptorist Parish • Dumaguete City</p>
                 </div>
               </div>
               <ul className="flex items-center gap-6 text-sm">
@@ -88,74 +88,91 @@ function App() {
       </header>
 
       {/* Hero Section */}
-      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 pb-4">
         <div className="absolute inset-0">
           <img src="/src/assets/images/Perpetual Church.png" alt="Our Mother of Perpetual Help Redemptorist Church" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black/85 via-black/70 via-black/50 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
         </div>
 
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-[#8B4513]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-96 sm:h-96 bg-[#2c3e50]/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-48 sm:h-48 bg-[#34495e]/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-64 sm:h-64 bg-[#8B4513]/15 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-48 h-48 sm:w-96 sm:h-96 bg-[#2c3e50]/15 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 sm:w-48 sm:h-48 bg-[#34495e]/15 rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute top-1/3 right-1/3 w-40 h-40 sm:w-80 sm:h-80 bg-[#FFD700]/8 rounded-full blur-2xl animate-pulse" style={{animationDelay: '3s'}}></div>
         </div>
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4">
+        {/* Decorative Cross Pattern */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute top-20 left-20 w-16 h-16 border-2 border-white/20 rounded-full"></div>
+          <div className="absolute bottom-20 right-20 w-12 h-12 border-2 border-white/20 rounded-full"></div>
+          <div className="absolute top-1/2 left-10 w-8 h-8 border border-white/20 rotate-45"></div>
+          <div className="absolute top-1/3 right-10 w-6 h-6 border border-white/20 rotate-45"></div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 py-4">
           {/* Mobile Layout */}
-          <div className="block lg:hidden space-y-2">
+          <div className="block lg:hidden space-y-3">
             <div className="text-center space-y-1">
-              <h1 className="text-2xl font-display font-bold text-[#8B4513] leading-tight drop-shadow-2xl">
+              <h1 className="text-xl font-serif font-black text-[#8B4513] leading-tight drop-shadow-2xl animate-fade-in tracking-wider italic">
                 Our Mother of Perpetual Help
               </h1>
-              <h2 className="text-xs font-display font-light text-white/95 drop-shadow-xl">
-                Redemptorist Church • Dumaguete City
+              <h2 className="text-sm font-serif font-semibold text-white/95 drop-shadow-xl italic">
+                Redemptorist Parish • Dumaguete City
               </h2>
+              <p className="text-xs font-medium text-white/90 drop-shadow-lg italic">
+                "Your Spiritual Home Since 1974"
+              </p>
               <div className="flex items-center justify-center gap-2">
-                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
+                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-[#8B4513] to-transparent rounded-full"></div>
                 <div className="w-1.5 h-1.5 bg-[#8B4513] rounded-full shadow-sm"></div>
-                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full"></div>
+                <div className="w-8 h-0.5 bg-gradient-to-r from-transparent via-[#8B4513] to-transparent rounded-full"></div>
               </div>
+
             </div>
 
             {/* Mobile Services */}
-            <div className="space-y-1.5">
-              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-[#8B4513] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+            <div className="space-y-2">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-300 group">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#8B4513] to-[#A0522D] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
                     <i className="fas fa-cross text-xs"></i>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-white font-bold text-xs">Sacramental Services</h4>
+                    <h4 className="text-white font-bold text-sm group-hover:text-[#FFD700] transition-colors">Sacramental Services</h4>
+                    <p className="text-white/80 text-xs">Baptism • Confirmation • Eucharist</p>
                   </div>
-                  <a href="#services" className="bg-[#8B4513] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#8B4513]/90 transition-all shadow-lg">
+                  <a href="#services" className="bg-[#8B4513] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#FFD700] hover:text-[#8B4513] transition-all shadow-lg transform hover:scale-105">
                     <i className="fas fa-arrow-right text-xs"></i>
                   </a>
                 </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-[#2c3e50] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-300 group">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#2c3e50] to-[#34495e] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
                     <i className="fas fa-file-alt text-xs"></i>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-white font-bold text-xs">Church Certificates</h4>
+                    <h4 className="text-white font-bold text-sm group-hover:text-[#87CEEB] transition-colors">Church Certificates</h4>
+                    <p className="text-white/80 text-xs">Confirmation • Mass Cards • Marriage</p>
                   </div>
-                  <a href="#services" className="bg-[#2c3e50] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#2c3e50]/90 transition-all shadow-lg">
+                  <a href="#services" className="bg-[#2c3e50] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#87CEEB] hover:text-[#2c3e50] transition-all shadow-lg transform hover:scale-105">
                     <i className="fas fa-arrow-right text-xs"></i>
                   </a>
                 </div>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-lg p-2 border border-white/20 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-[#34495e] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
+              <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-300 group">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-br from-[#34495e] to-[#4682B4] rounded-full flex items-center justify-center text-white flex-shrink-0 shadow-lg">
                     <i className="fas fa-users text-xs"></i>
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-white font-bold text-xs">Community & Ministries</h4>
+                    <h4 className="text-white font-bold text-sm group-hover:text-[#98FB98] transition-colors">Community & Ministries</h4>
+                    <p className="text-white/80 text-xs">Youth Programs • Charity • Fellowship</p>
                   </div>
-                  <a href="#ministries" className="bg-[#34495e] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#34495e]/90 transition-all shadow-lg">
+                  <a href="#ministries" className="bg-[#34495e] text-white px-2 py-1 rounded-full font-bold text-xs hover:bg-[#98FB98] hover:text-[#34495e] transition-all shadow-lg transform hover:scale-105">
                     <i className="fas fa-arrow-right text-xs"></i>
                   </a>
                 </div>
@@ -231,62 +248,65 @@ function App() {
           </div>
 
           {/* Desktop Layout */}
-          <div className="hidden lg:grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
-            <div className="lg:col-span-2 space-y-4">
+          <div className="hidden lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-4">
               <div className="space-y-3">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-[#8B4513] leading-tight drop-shadow-2xl">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif font-black text-[#8B4513] leading-tight drop-shadow-2xl animate-fade-in tracking-wider italic">
                   Our Mother of Perpetual Help
                 </h1>
-                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-display font-light text-white/90 drop-shadow-lg">
-                  Redemptorist Church • Dumaguete City
+                <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-serif font-semibold text-white/90 drop-shadow-lg italic">
+                  Redemptorist Parish • Dumaguete City
                 </h2>
-                <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-[#8B4513] rounded-full"></div>
+                <p className="text-sm font-medium text-white/90 drop-shadow-lg italic mb-2">
+                  "Your Spiritual Home Since 1974"
+                </p>
+                <div className="w-16 sm:w-20 lg:w-24 h-0.5 sm:h-1 bg-gradient-to-r from-[#8B4513] to-[#FFD700] rounded-full"></div>
               </div>
 
               <div className="space-y-2">
-                <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 hover:bg-white/15 hover:border-[#8B4513]/50 transition-all duration-300 transform hover:scale-102 hover:shadow-xl group">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#8B4513] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#8B4513] to-[#A0522D] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg group-hover:shadow-xl transition-all">
                       <i className="fas fa-cross"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1">Sacramental Services</h4>
+                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1 group-hover:text-[#FFD700] transition-colors">Sacramental Services</h4>
                       <p className="text-white/90 text-xs leading-relaxed">Baptism • Confirmation • Eucharist • Marriage • Anointing</p>
                       <p className="text-white/70 text-xs mt-1">Experience God's grace through sacred sacraments</p>
                     </div>
-                    <a href="#services" className="bg-[#8B4513] text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-[#8B4513]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
+                    <a href="#services" className="bg-[#8B4513] text-white px-3 py-1.5 rounded-full font-bold text-xs hover:bg-[#FFD700] hover:text-[#8B4513] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
                       <i className="fas fa-arrow-right text-xs"></i>
                     </a>
                   </div>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 hover:bg-white/15 hover:border-[#2c3e50]/50 transition-all duration-300 transform hover:scale-102 hover:shadow-xl group">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#2c3e50] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#2c3e50] to-[#34495e] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg group-hover:shadow-xl transition-all">
                       <i className="fas fa-file-alt"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1">Church Certificates</h4>
+                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1 group-hover:text-[#87CEEB] transition-colors">Church Certificates</h4>
                       <p className="text-white/90 text-xs leading-relaxed">Confirmation • Mass Cards • Marriage • Funeral</p>
                       <p className="text-white/70 text-xs mt-1">Official documentation for your spiritual journey</p>
                     </div>
-                    <a href="#services" className="bg-[#2c3e50] text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-[#2c3e50]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
+                    <a href="#services" className="bg-[#2c3e50] text-white px-3 py-1.5 rounded-full font-bold text-xs hover:bg-[#87CEEB] hover:text-[#2c3e50] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
                       <i className="fas fa-arrow-right text-xs"></i>
                     </a>
                   </div>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 hover:bg-white/15 transition-all">
+                <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 hover:bg-white/15 hover:border-[#34495e]/50 transition-all duration-300 transform hover:scale-102 hover:shadow-xl group">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#34495e] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
+                    <div className="w-10 h-10 bg-gradient-to-br from-[#34495e] to-[#4682B4] rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg group-hover:shadow-xl transition-all">
                       <i className="fas fa-users"></i>
                     </div>
                     <div className="flex-1">
-                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1">Community & Ministries</h4>
+                      <h4 className="text-white font-bold text-sm drop-shadow-md mb-1 group-hover:text-[#98FB98] transition-colors">Community & Ministries</h4>
                       <p className="text-white/90 text-xs leading-relaxed">Youth Programs • Charity • Fellowship Groups</p>
                       <p className="text-white/70 text-xs mt-1">Connect and serve with fellow parishioners</p>
                     </div>
-                    <a href="#ministries" className="bg-[#34495e] text-white px-3 py-1 rounded-full font-bold text-xs hover:bg-[#34495e]/90 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
+                    <a href="#ministries" className="bg-[#34495e] text-white px-3 py-1.5 rounded-full font-bold text-xs hover:bg-[#98FB98] hover:text-[#34495e] transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex-shrink-0">
                       <i className="fas fa-arrow-right text-xs"></i>
                     </a>
                   </div>
@@ -294,7 +314,7 @@ function App() {
               </div>
             </div>
 
-            <div className="lg:col-span-3 space-y-4">
+            <div className="space-y-4">
               <div className="bg-white/10 backdrop-blur-md rounded-lg p-3 border border-white/20 shadow-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm flex-shrink-0 shadow-lg">
@@ -351,6 +371,16 @@ function App() {
         </div>
 
         <div className="absolute inset-0 bg-black/20 pointer-events-none"></div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce z-20">
+          <div className="flex flex-col items-center gap-2 text-white/70">
+            <span className="text-xs font-medium drop-shadow">Scroll to explore</span>
+            <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center backdrop-blur-sm">
+              <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* About */}
@@ -363,8 +393,8 @@ function App() {
               </div>
               <span className="text-[#8B4513] font-bold text-xs uppercase tracking-wide">About Our Parish</span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-[#2c3e50] mb-2">Our Sacred Story</h2>
-            <p className="text-sm text-gray-700 max-w-2xl mx-auto">Discover the heart and soul of Our Mother of Perpetual Help Redemptorist Church</p>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-[#2c3e50] mb-2">Our Sacred Story & Heritage</h2>
+            <p className="text-sm text-gray-700 max-w-2xl mx-auto">For nearly five decades, our parish has been a beacon of faith, nurturing souls and building community in Dumaguete City</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6 items-start">
@@ -442,8 +472,8 @@ function App() {
               <i className="fas fa-hands-helping text-[#2c3e50] text-xs"></i>
               <span className="text-[#2c3e50] font-semibold text-xs uppercase tracking-wide">Our Ministries</span>
             </div>
-            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2">Serve with Purpose</h2>
-            <p className="text-sm text-gray-600 max-w-xl mx-auto">Discover ways to serve God and our community</p>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2">Serve with Love & Purpose</h2>
+            <p className="text-sm text-gray-600 max-w-xl mx-auto">Discover meaningful ways to serve God, support our community, and grow in faith together</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-4 items-center mb-4">
@@ -553,7 +583,7 @@ function App() {
              <div className="inline-block px-3 py-1 bg-gradient-to-r from-[#8B4513]/80 via-[#A0522D]/60 to-[#CD853F]/70 backdrop-blur-sm rounded-full mb-2 border border-white/30">
                <span className="text-white font-semibold text-xs uppercase tracking-wide drop-shadow-sm">Events</span>
              </div>
-             <h2 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-1 drop-shadow-lg">Our Events & Activities</h2>
+              <h2 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-1 drop-shadow-lg">Faith-Filled Events & Celebrations</h2>
              <p className="text-sm text-[#F5DEB3]/90 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
            </div>
 
@@ -640,15 +670,15 @@ function App() {
             <div className="inline-block px-3 py-1 bg-[#8B4513]/10 rounded-full mb-2">
               <span className="text-[#8B4513] font-semibold text-xs uppercase tracking-wide">Sacramental Services</span>
             </div>
-            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2 leading-tight">Our Sacramental Services & Church Certificates</h2>
-            <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">Experience the sacraments of our faith and obtain official church certificates</p>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-2 leading-tight">Sacred Sacraments & Official Documents</h2>
+            <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">Experience the sacred sacraments that nourish your soul and obtain official church documents for life's important moments</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {[
-              { title: 'Sacramental Services', items: 'Baptism • Confirmation • Eucharist • Marriage • Anointing', desc: 'Experience God\'s grace through sacred sacraments' },
-              { title: 'Church Certificates', items: 'Confirmation • Mass Cards • Marriage • Funeral', desc: 'Official documentation for your spiritual journey' },
-              { title: 'Community & Ministries', items: 'Youth Programs • Charity • Fellowship Groups', desc: 'Connect and serve with fellow parishioners' },
+              { title: 'Sacramental Services', items: 'Baptism • Confirmation • Eucharist • Marriage • Anointing', desc: 'Receive God\'s grace through sacred sacraments and rites' },
+              { title: 'Church Certificates', items: 'Confirmation • Mass Cards • Marriage • Funeral', desc: 'Official records celebrating life\'s sacred milestones' },
+              { title: 'Community & Ministries', items: 'Youth Programs • Charity • Fellowship Groups', desc: 'Grow in faith through community and compassionate service' },
             ].map((service, i) => (
               <div key={i} className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 text-center aspect-square flex flex-col justify-center">
                 <div className={`w-16 h-16 ${i === 0 ? 'bg-[#8B4513]' : i === 1 ? 'bg-[#2c3e50]' : 'bg-[#34495e]'} rounded-full flex items-center justify-center text-white mx-auto mb-4 shadow-lg`}>
@@ -688,8 +718,8 @@ function App() {
               <i className="fas fa-envelope text-[#8B4513] text-xs"></i>
               <span className="text-[#8B4513] font-semibold text-xs uppercase tracking-wide">Contact Us</span>
             </div>
-            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-1 leading-tight">Get In Touch</h2>
-            <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">We'd love to hear from you and welcome you to our parish community.</p>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-[#2c3e50] mb-1 leading-tight">Connect With Our Community</h2>
+            <p className="text-sm text-gray-600 max-w-xl mx-auto leading-relaxed">Reach out to us - we're here to support your spiritual journey and welcome you into our loving community.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
