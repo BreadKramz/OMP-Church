@@ -106,15 +106,15 @@ function Signup() {
 
       <div className="min-h-screen relative py-8 px-4 pt-16">
         <div className="h-full flex items-start justify-center pt-12">
-          <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
-        <div className="text-center mb-4">
+          <div className="max-w-xs w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
+        <div className="text-center mb-2">
           <h2 className="text-lg font-bold text-[#2c3e50] mb-1">Create Account</h2>
           <p className="text-gray-600 text-xs">Join Our Mother of Perpetual Help community</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-2">
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
             <input
               type="text"
               name="fullName"
@@ -127,7 +127,7 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
             <input
               type="email"
               name="email"
@@ -140,7 +140,7 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
             <input
               type="tel"
               name="phone"
@@ -153,7 +153,7 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
@@ -175,7 +175,7 @@ function Signup() {
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
+            <label className="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
             <div className="relative">
               <input
                 type={showPassword ? 'text' : 'password'}
