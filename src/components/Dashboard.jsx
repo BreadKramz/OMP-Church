@@ -74,21 +74,21 @@ function Dashboard() {
                 <p className="text-xs text-gray-600 italic hidden md:block">Redemptorist Parish • Dumaguete City</p>
               </div>
             </div>
-            <div className="flex-1 relative">
-              {/* Mobile Menu Button */}
-              <button
-                className="lg:hidden absolute right-0 flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#8B4513]/10 text-[#8B4513] transition-colors"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              >
-                <i className={mobileMenuOpen ? "fas fa-times text-xl" : "fas fa-bars text-xl"}></i>
-              </button>
+            <div className="flex-1 flex items-center justify-end relative">
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="hidden lg:flex absolute right-0 top-1 items-center gap-2 bg-[#8B4513] text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                className="hidden lg:flex items-center gap-2 bg-[#8B4513] text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all hover:scale-105 mr-4"
               >
                 <i className="fas fa-sign-out-alt text-xs"></i>
                 Logout
+              </button>
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#8B4513]/10 text-[#8B4513] transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <i className={mobileMenuOpen ? "fas fa-times text-xl" : "fas fa-bars text-xl"}></i>
               </button>
             </div>
           </div>
