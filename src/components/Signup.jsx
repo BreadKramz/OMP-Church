@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
 function Signup() {
+  const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const [formData, setFormData] = useState({
@@ -15,6 +17,7 @@ function Signup() {
   })
 
   const [showPassword, setShowPassword] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const handleChange = (e) => {
     setFormData({
@@ -42,7 +45,7 @@ function Signup() {
     if (error) {
       alert(error.message)
     } else {
-      alert('Signup successful! Check your email for confirmation.')
+      setShowModal(true)
     }
   }
 
@@ -228,6 +231,22 @@ function Signup() {
         </div>
           </div>
         </div>
+
+        {/* Confirmation Modal */}
+        {showModal && (
+          <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-4">
+              <h3 className="text-lg font-bold text-[#2c3e50] mb-2">Confirm Your Email</h3>
+              <p className="text-gray-600 mb-4">Please check your email and click the confirmation link to complete your signup.</p>
+              <button
+                onClick={() => { setShowModal(false); navigate('/login'); }}
+                className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#8B4513]/90 transition-all"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Footer */}
         <footer className="absolute bottom-0 left-0 right-0 bg-[#2c3e50] text-white py-4 shadow-inner">
