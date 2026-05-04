@@ -175,10 +175,10 @@ function App() {
                 A welcoming parish in Dumaguete City, inviting every family to grow closer to Christ through prayer, service, and sacramental life.
               </p>
               <div className="flex flex-wrap gap-3">
-                <a href="#about" className="inline-flex items-center justify-center rounded-full bg-[#8B4513] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition hover:bg-[#8B4513]/90">
+                <a href="#about" className="inline-flex items-center justify-center rounded-full bg-[#8B4513] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-lg transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-xl">
                   Learn More
                 </a>
-                <a href="#contact" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[#2c3e50] shadow-sm transition hover:bg-gray-100">
+                <a href="#contact" className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[#2c3e50] shadow-sm transition-all duration-300 hover:bg-gray-100 hover:scale-105 hover:shadow-lg">
                   Contact Us
                 </a>
               </div>
