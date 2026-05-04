@@ -178,7 +178,7 @@ function Login() {
               <h3 className="text-lg font-bold text-[#2c3e50] mb-2">Login Successful</h3>
               <p className="text-gray-600 mb-4">Redirecting to your account...</p>
               <button
-                onClick={() => { setShowModal(false); navigate('/'); }}
+                onClick={() => { setShowModal(false); navigate('/dashboard'); }}
                 className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#8B4513]/90 transition-all"
               >
                 OK

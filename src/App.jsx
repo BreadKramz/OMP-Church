@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
+import Dashboard from './components/Dashboard.jsx'
 import './App.css'
 
 const logoImage = new URL('./assets/images/Perpetual Church Logo.png', import.meta.url).href
@@ -48,6 +49,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/" element={
         <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
       {/* Header */}
