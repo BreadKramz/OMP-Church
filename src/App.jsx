@@ -531,8 +531,7 @@ function App() {
 
             <div className="space-y-4">
               <div className="rounded-[2rem] border border-white/20 bg-white/95 p-6 shadow-xl">
-                <div className="text-xs uppercase tracking-[0.25em] text-[#8B4513] font-semibold mb-3">Receive God's Grace</div>
-                <p className="text-sm text-gray-600 leading-relaxed mb-5">Our parish offers sacramental guidance and official church support in one compact service section.</p>
+  <div className="text-xs uppercase tracking-[0.25em] text-[#8B4513] font-semibold mb-3">Receive God's Grace</div>
                 <div className="rounded-3xl bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#CD853F] p-4 text-white">
                   <p className="text-xs uppercase tracking-[0.2em] mb-2">Scripture</p>
                   <p className="text-sm leading-relaxed">"Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."</p>
@@ -545,7 +544,7 @@ function App() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="pt-4 pb-3 bg-gradient-to-br from-gray-50 via-white to-primary/5 relative overflow-hidden">
+      <section id="contact" className="pt-4 pb-3 bg-gradient-to-br from-secondary/5 via-white to-primary/5 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-20 left-20 w-32 h-32 border border-primary/20 rounded-full"></div>
           <div className="absolute bottom-20 right-20 w-24 h-24 border border-secondary/20 rounded-full"></div>
