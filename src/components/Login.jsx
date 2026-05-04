@@ -91,14 +91,14 @@ function Login() {
       </header>
 
       <div className="min-h-screen relative py-12 px-4 pt-20">
-        <div className="h-full flex items-center justify-center">
-          <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-[#2c3e50] mb-2">Login</h2>
-          <p className="text-gray-600">Welcome back to Our Mother of Perpetual Help</p>
+        <div className="h-full flex items-start justify-center pt-12">
+          <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
+        <div className="text-center mb-4">
+          <h2 className="text-lg font-bold text-[#2c3e50] mb-1">Login</h2>
+          <p className="text-gray-600 text-xs">Welcome back to Our Mother of Perpetual Help</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-3">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
             <input
@@ -106,7 +106,7 @@ function Login() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-4 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="your.email@example.com"
               required
             />
@@ -119,7 +119,7 @@ function Login() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-4 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Enter your password"
               required
             />
@@ -127,14 +127,14 @@ function Login() {
 
           <button
             type="submit"
-            className="w-full bg-[#8B4513] text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-lg"
+            className="w-full bg-[#8B4513] text-white py-1.5 px-4 rounded-lg font-semibold transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-lg"
           >
             Sign In
           </button>
         </form>
 
-        <div className="text-center mt-6">
-          <p className="text-gray-600">
+        <div className="text-center mt-3">
+          <p className="text-gray-600 text-xs">
             Don't have an account?{' '}
             <a href="/signup" className="text-[#8B4513] font-semibold hover:underline">
               Sign up
