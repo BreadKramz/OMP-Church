@@ -14,6 +14,7 @@ const priestImages = {
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(true)
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -29,10 +30,25 @@ function App() {
     return () => document.removeEventListener('click', handleClick)
   }, [])
 
+  useEffect(() => {
+    let lastScrollY = window.scrollY
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setHeaderVisible(false)
+      } else {
+        setHeaderVisible(true)
+      }
+      lastScrollY = currentScrollY
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   return (
     <div className="font-body bg-gray-50 text-gray-900 scroll-smooth">
       {/* Header */}
-      <header id="main-header" className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300">
+      <header id="main-header" className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300 ${headerVisible ? '' : '-translate-y-full'}`}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo & Branding */}
