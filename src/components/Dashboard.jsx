@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { auth, db } from '../lib/firebase'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -11,48 +13,43 @@ function Dashboard() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const getUser = async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      // Try to get profile
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', user.id)
-        .single()
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const profileRef = doc(db, 'profiles', user.uid)
+          const profileSnap = await getDoc(profileRef)
 
-      if (error) {
-        // Profile doesn't exist, insert default
-        const { error: insertError } = await supabase.from('profiles').insert({
-          id: user.id,
-          first_name: 'User',
-          last_name: '',
-          email_address: user.email,
-          phone_number: '',
-          role: 'user'
-        })
-
-        if (!insertError) {
-          // Fetch the newly inserted profile
-          const { data: newData } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', user.id)
-            .single()
-          setProfile(newData)
-        } else {
-          console.error('Error inserting profile:', insertError)
-          navigate('/login')
+          if (profileSnap.exists()) {
+            const data = profileSnap.data()
+            setProfile(data)
+            if (data.role !== 'user') {
+              navigate('/')
+            }
+          } else {
+            // Profile doesn't exist, create default
+            const defaultProfile = {
+              id: user.uid,
+              first_name: 'User',
+              last_name: '',
+              email_address: user.email,
+              phone_number: '',
+              role: 'user',
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            }
+            await setDoc(profileRef, defaultProfile)
+            setProfile(defaultProfile)
+          }
+        } catch (error) {
+          console.error('Error accessing profile:', error)
+          alert('Error loading profile: ' + error.message)
         }
       } else {
-        setProfile(data)
-        if (data.role !== 'user') {
-          navigate('/')
-        }
+        navigate('/login')
       }
-    } else {
-      navigate('/login')
-    }
-    setLoading(false)
+      setLoading(false)
+    })
+    return unsubscribe
   }
 
   useEffect(() => {
@@ -60,7 +57,7 @@ function Dashboard() {
   }, [])
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    await signOut(auth)
     navigate('/')
   }
 

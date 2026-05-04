@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { auth, db } from '../lib/firebase'
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -22,9 +24,10 @@ function Signup() {
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) navigate('/dashboard')
     })
+    return () => unsubscribe()
   }, [navigate])
 
   const handleChange = (e) => {
@@ -40,21 +43,22 @@ function Signup() {
       alert('Passwords do not match')
       return
     }
-    const { error } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-      options: {
-        data: {
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          phone: formData.phone
-        }
-      }
-    })
-    if (error) {
-      alert(error.message)
-    } else {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password)
+      const user = userCredential.user
+      await setDoc(doc(db, 'profiles', user.uid), {
+        id: user.uid,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email_address: formData.email,
+        phone_number: formData.phone,
+        role: 'user',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
       setShowModal(true)
+    } catch (error) {
+      alert(error.message)
     }
   }
 

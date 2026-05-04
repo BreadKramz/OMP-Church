@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { supabase } from '../lib/supabase'
+import { auth } from '../lib/firebase'
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -17,9 +18,10 @@ function Login() {
   const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) navigate('/dashboard')
     })
+    return () => unsubscribe()
   }, [navigate])
 
   const handleChange = (e) => {
@@ -31,14 +33,11 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const { error } = await supabase.auth.signInWithPassword({
-      email: formData.email,
-      password: formData.password
-    })
-    if (error) {
-      alert(error.message)
-    } else {
+    try {
+      await signInWithEmailAndPassword(auth, formData.email, formData.password)
       setShowModal(true)
+    } catch (error) {
+      alert(error.message)
     }
   }
 
