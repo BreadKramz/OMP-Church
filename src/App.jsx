@@ -138,7 +138,7 @@ function App() {
                 <span className="text-[#FFD700]">•</span>
                 <span>Since 1974</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-black tracking-tight leading-tight drop-shadow-2xl text-white">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif font-black tracking-tight leading-tight drop-shadow-2xl text-[#8B4513]">
                 Our Mother of Perpetual Help
               </h1>
               <p className="max-w-2xl text-base sm:text-lg md:text-xl text-white/90 leading-relaxed drop-shadow-lg">
