@@ -365,18 +365,18 @@ function App() {
                 <i className="fas fa-calendar-alt text-[#8B4513] text-sm"></i>
                 <span className="text-[#8B4513] font-bold text-xs uppercase tracking-widest">Events</span>
               </div>
-              <h2 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-1 drop-shadow-lg">Faith-Filled Events & Celebrations</h2>
-             <p className="text-sm text-[#F5DEB3]/90 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
+               <h2 className="text-xl md:text-2xl font-display font-bold text-white mb-1 drop-shadow-lg">Faith-Filled Events & Celebrations</h2>
+              <p className="text-sm text-white/90 max-w-xl mx-auto drop-shadow">Celebrating faith, community, and fellowship together</p>
            </div>
 
           <div className="grid lg:grid-cols-2 gap-4 items-center mb-4">
            <div>
-             <h3 className="text-xl md:text-2xl font-display font-bold text-[#F5DEB3] mb-3 drop-shadow-lg">Come Together in Faith</h3>
-             <p className="text-sm text-[#F5DEB3]/90 mb-3 leading-relaxed drop-shadow-md">
+              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3 drop-shadow-lg">Come Together in Faith</h3>
+              <p className="text-sm text-white/90 mb-3 leading-relaxed drop-shadow-md">
                Our parish events bring our community together for worship, celebration, learning, and service. From solemn liturgies to joyful gatherings, there's always something happening.
              </p>
              <div className="bg-white/10 backdrop-blur-sm border-l-4 border-[#F5DEB3] p-2 rounded-r-lg mb-2">
-               <p className="text-[#F5DEB3] italic text-xs leading-relaxed">
+                <p className="text-white italic text-xs leading-relaxed">
                  "For where two or three gather in my name, there am I with them." - Matthew 18:20
                </p>
              </div>
@@ -386,8 +386,8 @@ function App() {
                    <i className="fas fa-calendar-check text-[#F5DEB3] text-xs"></i>
                  </div>
                  <div>
-                   <h4 className="font-semibold text-[#F5DEB3] text-xs drop-shadow-md">Regular Celebrations</h4>
-                   <p className="text-[#F5DEB3]/80 text-xs">Weekly masses & feasts</p>
+                    <h4 className="font-semibold text-white text-xs drop-shadow-md">Regular Celebrations</h4>
+                    <p className="text-white/80 text-xs">Weekly masses & feasts</p>
                  </div>
                </div>
                <div className="flex items-center gap-2">
@@ -395,8 +395,8 @@ function App() {
                    <i className="fas fa-users text-[#F5DEB3] text-xs"></i>
                  </div>
                  <div>
-                   <h4 className="font-semibold text-[#F5DEB3] text-xs drop-shadow-md">Community Building</h4>
-                   <p className="text-[#F5DEB3]/80 text-xs">Fellowship gatherings</p>
+                    <h4 className="font-semibold text-white text-xs drop-shadow-md">Community Building</h4>
+                    <p className="text-white/80 text-xs">Fellowship gatherings</p>
                  </div>
                </div>
              </div>
@@ -404,9 +404,9 @@ function App() {
 
             <div className="grid grid-cols-3 gap-4">
               {[
-                { num: '50+', label: 'Events/Year', bgColor: 'bg-[#8B4513]/80', textColor: 'text-[#F5DEB3]' },
-                { num: '2,000+', label: 'Participants', bgColor: 'bg-[#2c3e50]/80', textColor: 'text-[#F5DEB3]' },
-                { num: '12', label: 'Programs', bgColor: 'bg-[#CD853F]/80', textColor: 'text-[#8B4513]' },
+                { num: '50+', label: 'Events/Year', bgColor: 'bg-[#8B4513]/80', textColor: 'text-white' },
+                { num: '2,000+', label: 'Participants', bgColor: 'bg-[#2c3e50]/80', textColor: 'text-white' },
+                { num: '12', label: 'Programs', bgColor: 'bg-[#CD853F]/80', textColor: 'text-white' },
               ].map((stat, i) => (
                 <div key={i} className="text-center">
                   <div className={`w-12 h-12 ${stat.bgColor} backdrop-blur-sm rounded-full flex items-center justify-center text-white text-lg mx-auto mb-2 shadow-lg`}>
