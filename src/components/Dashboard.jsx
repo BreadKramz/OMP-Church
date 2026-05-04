@@ -21,6 +21,9 @@ function Dashboard() {
       console.error('Error fetching profile:', error)
     } else {
       setProfile(data)
+      if (data.role !== 'user') {
+        navigate('/')
+      }
     }
   }
 
@@ -60,12 +63,7 @@ function Dashboard() {
       <header id="main-header" className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center h-16">
-            <div className="flex-1 flex items-center">
-              <a href="/" className="inline-flex items-center gap-2 text-[#8B4513] font-medium hover:text-[#8B4513]/80 transition-colors text-sm">
-                <i className="fas fa-arrow-left text-xs"></i>
-                Back to Home
-              </a>
-            </div>
+            <div className="flex-1"></div>
             {/* Logo & Branding */}
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#8B4513] to-[#A0522D] rounded-full flex items-center justify-center text-white shadow-lg overflow-hidden border-2 border-[#FFD700]/30">
@@ -100,10 +98,6 @@ function Dashboard() {
         {mobileMenuOpen && (
           <div className="lg:hidden bg-gradient-to-b from-white to-[#f8f5f0] border-t border-[#8B4513]/10 shadow-lg">
             <div className="px-4 py-4 space-y-2">
-              <a href="/" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                <i className="fas fa-home w-5 text-[#8B4513]"></i>
-                <span>Home</span>
-              </a>
               <button
                 onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
                 className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors w-full text-left"
