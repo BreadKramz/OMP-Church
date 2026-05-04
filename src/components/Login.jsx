@@ -1,6 +1,10 @@
 import { useState } from 'react'
 
+const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
+
 function Login() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -20,8 +24,75 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f0ede9] flex items-center justify-center py-12 px-4">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
+    <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
+      {/* Header */}
+      <header id="main-header" className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo & Branding */}
+            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#8B4513] to-[#A0522D] rounded-full flex items-center justify-center text-white shadow-lg overflow-hidden border-2 border-[#FFD700]/30">
+                <img src={logoImage} alt="Church Logo" className="w-full h-full rounded-full object-cover" />
+              </div>
+              <div className="min-w-0 hidden sm:block">
+                <h1 className="text-sm md:text-base font-serif text-[#8B4513] font-black leading-tight italic">Our Mother of Perpetual Help</h1>
+                <p className="text-xs text-gray-600 italic hidden md:block">Redemptorist Parish • Dumaguete City</p>
+              </div>
+            </div>
+
+
+
+            {/* Mobile Menu Button */}
+            <button
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#8B4513]/10 text-[#8B4513] transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <i className={mobileMenuOpen ? "fas fa-times text-xl" : "fas fa-bars text-xl"}></i>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-gradient-to-b from-white to-[#f8f5f0] border-t border-[#8B4513]/10 shadow-lg">
+            <div className="px-4 py-4 space-y-2">
+              <a href="/" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-home w-5 text-[#8B4513]"></i>
+                <span>Home</span>
+              </a>
+              <a href="/#about" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-church w-5 text-[#8B4513]"></i>
+                <span>About Us</span>
+              </a>
+              <a href="/#ministries" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-hands-helping w-5 text-[#8B4513]"></i>
+                <span>Ministries</span>
+              </a>
+              <a href="/#events" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-calendar-alt w-5 text-[#8B4513]"></i>
+                <span>Events</span>
+              </a>
+              <a href="/#services" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-certificate w-5 text-[#8B4513]"></i>
+                <span>Services</span>
+              </a>
+              <a href="/#contact" className="flex items-center gap-3 px-4 py-3 font-medium text-gray-700 hover:bg-[#8B4513]/10 rounded-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>
+                <i className="fas fa-envelope w-5 text-[#8B4513]"></i>
+                <span>Contact Us</span>
+              </a>
+              <div className="border-t border-[#8B4513]/10 my-2"></div>
+              <a href="/signup" className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#8B4513] to-[#A0522D] text-white px-4 py-3 rounded-lg font-semibold text-sm transition-all hover:shadow-lg">
+                <i className="fas fa-user-plus text-xs"></i>
+                <span>Sign Up</span>
+              </a>
+            </div>
+          </div>
+        )}
+      </header>
+
+      <div className="min-h-screen relative py-12 px-4 pt-20">
+        <div className="h-full flex items-center justify-center">
+          <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 mx-auto">
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-[#2c3e50] mb-2">Login</h2>
           <p className="text-gray-600">Welcome back to Our Mother of Perpetual Help</p>
@@ -70,6 +141,17 @@ function Login() {
             </a>
           </p>
         </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <footer className="absolute bottom-0 left-0 right-0 bg-[#2c3e50] text-white py-4 shadow-inner">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <p className="text-white/80 text-xs sm:text-sm tracking-wide">
+              &copy; 2026 Our Mother of Perpetual Help Redemptorist Church - Dumaguete. All rights reserved.
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   )
