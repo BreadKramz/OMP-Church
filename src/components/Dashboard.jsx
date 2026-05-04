@@ -85,7 +85,7 @@ function Dashboard() {
               {/* Logout Button */}
               <button
                 onClick={handleLogout}
-                className="hidden lg:flex absolute right-0 items-center gap-2 bg-[#8B4513] text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                className="hidden lg:flex absolute right-0 top-1 items-center gap-2 bg-[#8B4513] text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all hover:scale-105"
               >
                 <i className="fas fa-sign-out-alt text-xs"></i>
                 Logout
