@@ -9,11 +9,7 @@ const heroImage = new URL('./assets/images/Perpetual Church.png', import.meta.ur
 const ourLadyImage = new URL('./assets/images/Mother-of-Perpetual-Help.png', import.meta.url).href
 const ministryImage = new URL('./assets/images/Ministry.png', import.meta.url).href
 const churchInsideImage = new URL('./assets/images/Perpetual Church Inside.png', import.meta.url).href
-const priestImages = {
-  'Fr. Gaspe': new URL('./assets/images/Fr._Gaspe.png', import.meta.url).href,
-  'Fr. James': new URL('./assets/images/Fr._James.png', import.meta.url).href,
-  'Fr. Eliodoro': new URL('./assets/images/Fr._Eliodoro.png', import.meta.url).href,
-}
+
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
