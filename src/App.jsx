@@ -64,27 +64,27 @@ function App() {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
-              <a href="#home" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors group">
+              <a href="#home" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 group hover:scale-105">
                 Home
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#8B4513] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </a>
-              <a href="#about" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors group">
+              <a href="#about" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 group hover:scale-105">
                 About
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#8B4513] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </a>
-              <a href="#ministries" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors group">
+              <a href="#ministries" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 group hover:scale-105">
                 Ministries
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#8B4513] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </a>
-              <a href="#events" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors group">
+              <a href="#events" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 group hover:scale-105">
                 Events
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#8B4513] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </a>
-              <a href="#services" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors group">
+              <a href="#services" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 group hover:scale-105">
                 Services
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#8B4513] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </a>
-              <a href="#contact" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-colors group">
+              <a href="#contact" className="relative px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-300 group hover:scale-105">
                 Contact
                 <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#8B4513] scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
               </a>
@@ -184,15 +184,15 @@ function App() {
               </div>
             </div>
             <div className="grid gap-4">
-              <div className="rounded-3xl bg-white/10 border border-white/15 p-5 text-white shadow-xl backdrop-blur-md">
+              <div className="rounded-3xl bg-white/10 border border-white/15 p-5 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:shadow-2xl hover:scale-105">
                 <h3 className="text-sm uppercase tracking-[0.3em] text-white/70 mb-2">Worship</h3>
                 <p className="text-sm text-white/90">Daily Masses, devotions, and communal prayer in a warm parish family.</p>
               </div>
-              <div className="rounded-3xl bg-white/10 border border-white/15 p-5 text-white shadow-xl backdrop-blur-md">
+              <div className="rounded-3xl bg-white/10 border border-white/15 p-5 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:shadow-2xl hover:scale-105">
                 <h3 className="text-sm uppercase tracking-[0.3em] text-white/70 mb-2">Sacraments</h3>
                 <p className="text-sm text-white/90">Support for Baptism, Eucharist, Confirmation, marriage, and healing ministries.</p>
               </div>
-              <div className="rounded-3xl bg-white/10 border border-white/15 p-5 text-white shadow-xl backdrop-blur-md">
+              <div className="rounded-3xl bg-white/10 border border-white/15 p-5 text-white shadow-xl backdrop-blur-md transition-all duration-300 hover:bg-white/20 hover:shadow-2xl hover:scale-105">
                 <h3 className="text-sm uppercase tracking-[0.3em] text-white/70 mb-2">Community</h3>
                 <p className="text-sm text-white/90">Youth groups, charity outreach, and fellowship for every generation.</p>
               </div>
@@ -205,8 +205,8 @@ function App() {
       {/* About */}      {/* About */}
       <section id="about" className="py-4 bg-gradient-to-br from-[#e8e5e1] via-[#edeae5] to-[#e8e5e1] relative overflow-hidden">
         {/* Decorative Elements */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-[#8B4513]/5 rounded-full blur-3xl -z-10"></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2c3e50]/5 rounded-full blur-3xl -z-10"></div>
+        <div className="absolute top-0 right-0 w-72 h-72 bg-[#8B4513]/5 rounded-full blur-3xl -z-10 animate-pulse"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2c3e50]/5 rounded-full blur-3xl -z-10 animate-pulse" style={{animationDelay: '1s'}}></div>
 
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           {/* Section Header */}
@@ -496,7 +496,7 @@ function App() {
           <div className="grid gap-6 lg:grid-cols-[1.5fr_0.9fr]">
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105">
                   <div className="w-9 h-9 rounded-full bg-[#8B4513]/10 flex items-center justify-center text-[#8B4513] text-sm">
                     <i className="fas fa-church"></i>
                   </div>
@@ -505,7 +505,7 @@ function App() {
                     <p className="text-xs text-gray-500">7 sacraments</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105">
                   <div className="w-9 h-9 rounded-full bg-[#2c3e50]/10 flex items-center justify-center text-[#2c3e50] text-sm">
                     <i className="fas fa-file-alt"></i>
                   </div>
@@ -514,7 +514,7 @@ function App() {
                     <p className="text-xs text-gray-500">Certified records</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105">
                   <div className="w-9 h-9 rounded-full bg-[#34495e]/10 flex items-center justify-center text-[#34495e] text-sm">
                     <i className="fas fa-users"></i>
                   </div>
@@ -523,7 +523,7 @@ function App() {
                     <p className="text-xs text-gray-500">Spiritual guidance</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm">
+                <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md hover:scale-105">
                   <div className="w-9 h-9 rounded-full bg-green-600/10 flex items-center justify-center text-green-600 text-sm">
                     <i className="fas fa-heart"></i>
                   </div>
@@ -540,7 +540,7 @@ function App() {
                   { title: 'Confirmation', desc: 'Strengthening faith through the Holy Spirit.', status: 'Essential', icon: 'fa-dove' },
                   { title: 'Eucharist', desc: 'Life in the Body & Blood of Christ.', status: 'Central', icon: 'fa-bread-slice' },
                 ].map((service, i) => (
-                  <div key={i} className="bg-white rounded-2xl p-3 text-center border border-gray-100 shadow-sm">
+                  <div key={i} className="bg-white rounded-2xl p-3 text-center border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-lg hover:scale-105">
                     <div className={`w-11 h-11 mx-auto mb-3 rounded-full flex items-center justify-center text-white ${i === 0 ? 'bg-[#8B4513]' : i === 1 ? 'bg-[#2c3e50]' : i === 2 ? 'bg-[#34495e]' : i === 3 ? 'bg-green-600' : i === 4 ? 'bg-purple-600' : 'bg-blue-600'}`}>
                       <i className={`fas ${service.icon} text-sm`}></i>
                     </div>
@@ -559,8 +559,8 @@ function App() {
               </div>
             </div>
 
-            <div className="space-y-4">
-              <div className="rounded-[2rem] border border-white/20 bg-white/95 p-6 shadow-xl">
+              <div className="space-y-4">
+                <div className="rounded-[2rem] border border-white/20 bg-white/95 p-6 shadow-xl transition-all duration-300 hover:shadow-2xl hover:scale-105">
   <div className="text-xs uppercase tracking-[0.25em] text-[#8B4513] font-semibold mb-3">Receive God's Grace</div>
                 <div className="rounded-3xl bg-gradient-to-r from-[#8B4513] via-[#A0522D] to-[#CD853F] p-4 text-white">
                   <p className="text-xs uppercase tracking-[0.2em] mb-2">Scripture</p>
@@ -622,7 +622,7 @@ function App() {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-3">
-            <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100">
+            <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105">
               <div className="text-center mb-2">
                 <h3 className="text-sm font-display font-bold text-[#2c3e50] mb-1">Send Us a Message</h3>
                 <p className="text-gray-600 text-xs">Have a question or need spiritual guidance? We're here to help.</p>
@@ -667,7 +667,7 @@ function App() {
               </form>
             </div>
 
-            <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100 overflow-hidden">
+            <div className="bg-white rounded-xl p-3 shadow-lg border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105">
               <h3 className="text-sm font-display font-bold text-[#2c3e50] mb-2 text-center">Find Us on the Map</h3>
               <div className="aspect-video rounded-lg overflow-hidden">
 <iframe
