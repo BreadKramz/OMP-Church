@@ -34,7 +34,8 @@ function Signup() {
       {/* Header */}
       <header id="main-header" className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center h-16">
+            <div className="flex-1"></div>
             {/* Logo & Branding */}
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-[#8B4513] to-[#A0522D] rounded-full flex items-center justify-center text-white shadow-lg overflow-hidden border-2 border-[#FFD700]/30">
@@ -45,16 +46,15 @@ function Signup() {
                 <p className="text-xs text-gray-600 italic hidden md:block">Redemptorist Parish • Dumaguete City</p>
               </div>
             </div>
-
-
-
-            {/* Mobile Menu Button */}
-            <button
-              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#8B4513]/10 text-[#8B4513] transition-colors"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <i className={mobileMenuOpen ? "fas fa-times text-xl" : "fas fa-bars text-xl"}></i>
-            </button>
+            <div className="flex-1 relative">
+              {/* Mobile Menu Button */}
+              <button
+                className="lg:hidden absolute right-0 flex items-center justify-center w-10 h-10 rounded-lg hover:bg-[#8B4513]/10 text-[#8B4513] transition-colors"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <i className={mobileMenuOpen ? "fas fa-times text-xl" : "fas fa-bars text-xl"}></i>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -96,15 +96,15 @@ function Signup() {
         )}
       </header>
 
-      <div className="min-h-screen relative py-12 px-4 pt-20">
+      <div className="min-h-screen relative py-8 px-4 pt-16">
         <div className="h-full flex items-center justify-center">
-          <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8 mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-[#2c3e50] mb-2">Create Account</h2>
-          <p className="text-gray-600">Join Our Mother of Perpetual Help community</p>
+          <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-6 mx-auto">
+        <div className="text-center mb-6">
+          <h2 className="text-xl font-bold text-[#2c3e50] mb-1">Create Account</h2>
+          <p className="text-gray-600 text-sm">Join Our Mother of Perpetual Help community</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
             <input
@@ -112,7 +112,7 @@ function Signup() {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Your full name"
               required
             />
@@ -125,7 +125,7 @@ function Signup() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="your.email@example.com"
               required
             />
@@ -138,7 +138,7 @@ function Signup() {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Create a password"
               required
             />
@@ -151,7 +151,7 @@ function Signup() {
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
               placeholder="Confirm your password"
               required
             />
@@ -159,13 +159,13 @@ function Signup() {
 
           <button
             type="submit"
-            className="w-full bg-[#8B4513] text-white py-3 px-4 rounded-lg font-semibold transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-lg"
+            className="w-full bg-[#8B4513] text-white py-2 px-3 rounded-lg font-semibold transition-all duration-300 hover:bg-[#8B4513]/90 hover:scale-105 hover:shadow-lg"
           >
             Create Account
           </button>
         </form>
 
-        <div className="text-center mt-6">
+        <div className="text-center mt-4">
           <p className="text-gray-600">
             Already have an account?{' '}
             <a href="/login" className="text-[#8B4513] font-semibold hover:underline">
