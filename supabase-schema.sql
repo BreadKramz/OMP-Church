@@ -4,7 +4,8 @@
 -- Create the profiles table
 CREATE TABLE profiles (
   id UUID REFERENCES auth.users(id) PRIMARY KEY,
-  full_name TEXT,
+  first_name TEXT,
+  last_name TEXT,
   email_address TEXT,
   phone_number TEXT,
   role TEXT CHECK (role IN ('user', 'admin')) DEFAULT 'user',
@@ -32,8 +33,8 @@ CREATE POLICY "Admins can do everything" ON profiles FOR ALL USING (
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name, email_address, phone_number)
-  VALUES (NEW.id, NEW.raw_user_meta_data->>'full_name', NEW.email, NEW.raw_user_meta_data->>'phone');
+  INSERT INTO public.profiles (id, first_name, last_name, email_address, phone_number)
+  VALUES (NEW.id, NEW.raw_user_meta_data->>'first_name', NEW.raw_user_meta_data->>'last_name', NEW.email, NEW.raw_user_meta_data->>'phone');
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

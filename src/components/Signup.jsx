@@ -9,7 +9,8 @@ function Signup() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const [formData, setFormData] = useState({
-    fullName: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
     password: '',
@@ -17,6 +18,7 @@ function Signup() {
   })
 
   const [showPassword, setShowPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [showModal, setShowModal] = useState(false)
 
   const handleChange = (e) => {
@@ -37,7 +39,8 @@ function Signup() {
       password: formData.password,
       options: {
         data: {
-          full_name: formData.fullName,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
           phone: formData.phone
         }
       }
@@ -130,17 +133,31 @@ function Signup() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-2">
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-              placeholder="Your full name"
-              required
-            />
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                placeholder="First name"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                className="w-full px-3 py-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                placeholder="Last name"
+                required
+              />
+            </div>
           </div>
 
           <div>
@@ -195,7 +212,7 @@ function Signup() {
             <label className="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
             <div className="relative">
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showConfirmPassword ? 'text' : 'password'}
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
@@ -205,10 +222,10 @@ function Signup() {
               />
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600"
               >
-                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-xs`}></i>
+                <i className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'} text-xs`}></i>
               </button>
             </div>
           </div>
