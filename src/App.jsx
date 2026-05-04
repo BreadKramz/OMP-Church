@@ -697,7 +697,7 @@ function App() {
       <footer className="bg-[#2c3e50] text-white py-4 shadow-inner">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <p className="text-white/80 text-xs sm:text-sm tracking-wide">
-            &copy; 2025 Our Mother of Perpetual Help Redemptorist Church - Dumaguete. All rights reserved.
+            &copy; 2026 Our Mother of Perpetual Help Redemptorist Church - Dumaguete. All rights reserved.
           </p>
         </div>
       </footer>
