@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Login from './components/Login.jsx'
+import Signup from './components/Signup.jsx'
 import './App.css'
 
 const logoImage = new URL('./assets/images/Perpetual Church Logo.png', import.meta.url).href
@@ -46,7 +49,11 @@ function App() {
   }, [])
 
   return (
-    <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/" element={
+        <div className="font-body bg-[#f0ede9] text-gray-900 scroll-smooth">
       {/* Header */}
       <header id="main-header" className={`fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-white via-white to-[#f8f5f0] shadow-md border-b border-[#8B4513]/10 transition-transform duration-300 ${headerVisible ? '' : '-translate-y-full'}`}>
         <div className="max-w-7xl mx-auto px-4">
@@ -92,7 +99,7 @@ function App() {
 
             {/* Desktop CTA Button */}
             <div className="hidden lg:flex items-center gap-2">
-              <a href="/register" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#8B4513] to-[#A0522D] text-white px-6 py-2.5 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all hover:scale-105">
+              <a href="/signup" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#8B4513] to-[#A0522D] text-white px-6 py-2.5 rounded-full font-semibold text-sm shadow-lg hover:shadow-xl transition-all hover:scale-105">
                 <i className="fas fa-user-plus text-xs"></i>
                 <span>Sign Up</span>
               </a>
@@ -137,7 +144,7 @@ function App() {
                 <span>Contact Us</span>
               </a>
               <div className="border-t border-[#8B4513]/10 my-2"></div>
-              <a href="/register" className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#8B4513] to-[#A0522D] text-white px-4 py-3 rounded-lg font-semibold text-sm transition-all hover:shadow-lg">
+              <a href="/signup" className="flex items-center justify-center gap-2 bg-gradient-to-r from-[#8B4513] to-[#A0522D] text-white px-4 py-3 rounded-lg font-semibold text-sm transition-all hover:shadow-lg">
                 <i className="fas fa-user-plus text-xs"></i>
                 <span>Sign Up</span>
               </a>
@@ -566,7 +573,7 @@ function App() {
                   <p className="text-xs uppercase tracking-[0.2em] mb-2">Scripture</p>
                   <p className="text-sm leading-relaxed">"Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit."</p>
                 </div>
-                <a href="/register" className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#8B4513] px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#8B4513]/90">Sign Up Now</a>
+                <a href="/signup" className="mt-5 inline-flex w-full items-center justify-center rounded-full bg-[#8B4513] px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-[#8B4513]/90">Sign Up Now</a>
               </div>
             </div>
           </div>
@@ -701,7 +708,9 @@ function App() {
           </p>
         </div>
       </footer>
-    </div>
+        </div>
+      } />
+    </Routes>
   )
 }
 
