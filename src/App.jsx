@@ -222,7 +222,7 @@ function App() {
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-2 gap-6 items-center">
             {/* Image Section */}
-            <div className="relative rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:scale-105">
               <div className="absolute inset-0 bg-gradient-to-br from-[#8B4513]/20 to-transparent z-10"></div>
               <img src={ourLadyImage} alt="Our Lady of Perpetual Help" className="w-full h-72 object-cover" />
             </div>
