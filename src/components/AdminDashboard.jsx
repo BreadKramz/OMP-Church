@@ -2,17 +2,17 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../lib/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
-function Dashboard() {
+function AdminDashboard() {
   const navigate = useNavigate()
   const [profile, setProfile] = useState(null)
   const [loading, setLoading] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const getUser = async () => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         try {
@@ -21,24 +21,13 @@ function Dashboard() {
 
           if (profileSnap.exists()) {
             const data = profileSnap.data()
-            setProfile(data)
-            if (data.role !== 'user') {
-              navigate('/admin-dashboard')
+            if (data.role === 'admin') {
+              setProfile(data)
+            } else {
+              navigate('/dashboard')
             }
           } else {
-            // Profile doesn't exist, create default
-            const defaultProfile = {
-              id: user.uid,
-              first_name: 'User',
-              last_name: '',
-              email_address: user.email,
-              phone_number: '',
-              role: 'user',
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            }
-            await setDoc(profileRef, defaultProfile)
-            setProfile(defaultProfile)
+            navigate('/dashboard')
           }
         } catch (error) {
           console.error('Error accessing profile:', error)
@@ -50,11 +39,7 @@ function Dashboard() {
       setLoading(false)
     })
     return unsubscribe
-  }
-
-  useEffect(() => {
-    getUser()
-  }, [])
+  }, [navigate])
 
   const handleLogout = async () => {
     await signOut(auth)
@@ -129,19 +114,36 @@ function Dashboard() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
             <div className="text-center mb-6">
-              <h1 className="text-2xl font-bold text-[#2c3e50] mb-2">Welcome to Your Dashboard</h1>
-              <p className="text-gray-600">Manage your account and stay connected with our community</p>
+              <h1 className="text-2xl font-bold text-[#2c3e50] mb-2">Admin Dashboard</h1>
+              <p className="text-gray-600">Manage the church community and oversee operations</p>
             </div>
 
             {profile && (
-              <div className="bg-[#f8f5f0] rounded-lg p-4">
-                <h2 className="text-lg font-semibold text-[#2c3e50] mb-3">Profile Information</h2>
-                <div className="space-y-2">
-                  <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
-                  <p><span className="font-medium">Email:</span> {profile.email_address}</p>
-                  <p><span className="font-medium">Phone:</span> {profile.phone_number}</p>
-                  <p><span className="font-medium">Role:</span> {profile.role}</p>
-                  <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-[#f8f5f0] rounded-lg p-4">
+                  <h2 className="text-lg font-semibold text-[#2c3e50] mb-3">Profile Information</h2>
+                  <div className="space-y-2">
+                    <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
+                    <p><span className="font-medium">Email:</span> {profile.email_address}</p>
+                    <p><span className="font-medium">Phone:</span> {profile.phone_number}</p>
+                    <p><span className="font-medium">Role:</span> {profile.role}</p>
+                    <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
+                  </div>
+                </div>
+
+                <div className="bg-[#f8f5f0] rounded-lg p-4">
+                  <h2 className="text-lg font-semibold text-[#2c3e50] mb-3">Admin Actions</h2>
+                  <div className="space-y-3">
+                    <button className="block w-full bg-[#8B4513] text-white py-2 px-4 rounded-lg font-semibold text-center hover:bg-[#8B4513]/90 transition-all">
+                      Manage Users
+                    </button>
+                    <button className="block w-full bg-[#2c3e50] text-white py-2 px-4 rounded-lg font-semibold text-center hover:bg-[#2c3e50]/90 transition-all">
+                      View Reports
+                    </button>
+                    <button className="block w-full bg-[#34495e] text-white py-2 px-4 rounded-lg font-semibold text-center hover:bg-[#34495e]/90 transition-all">
+                      System Settings
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -161,4 +163,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default AdminDashboard

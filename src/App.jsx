@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import Dashboard from './components/Dashboard.jsx'
+import AdminDashboard from './components/AdminDashboard.jsx'
 import './App.css'
 
 const logoImage = new URL('./assets/images/Perpetual Church Logo.png', import.meta.url).href
@@ -721,6 +722,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/admin-dashboard" element={<AdminDashboard />} />
       <Route path="/" element={<Home />} />
     </Routes>
   )
