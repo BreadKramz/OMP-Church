@@ -99,6 +99,12 @@ function Signup() {
       <div className="min-h-screen relative py-8 px-4 pt-16">
         <div className="h-full flex items-start justify-center pt-12">
           <div className="max-w-sm w-full bg-white rounded-xl shadow-lg p-4 mx-auto">
+        <div className="mb-4">
+          <a href="/" className="inline-flex items-center gap-2 text-[#8B4513] font-medium hover:text-[#8B4513]/80 transition-colors text-sm">
+            <i className="fas fa-arrow-left text-xs"></i>
+            Back to Home
+          </a>
+        </div>
         <div className="text-center mb-4">
           <h2 className="text-lg font-bold text-[#2c3e50] mb-1">Create Account</h2>
           <p className="text-gray-600 text-xs">Join Our Mother of Perpetual Help community</p>
