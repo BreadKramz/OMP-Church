@@ -1,6 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../lib/firebase'
 
 function Chatbot() {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
   const [messages, setMessages] = useState([
     {
@@ -11,6 +15,8 @@ function Chatbot() {
     }
   ])
   const [inputMessage, setInputMessage] = useState('')
+  const [user, setUser] = useState(null)
+  const [showAgentModal, setShowAgentModal] = useState(false)
   const messagesEndRef = useRef(null)
 
   const predefinedQuestions = [
@@ -53,12 +59,39 @@ function Chatbot() {
       id: 'join',
       question: 'How can I become a member?',
       answer: 'We welcome everyone to join our faith community!\n\n1. Attend our Sunday Masses\n2. Participate in our programs and ministries\n3. Consider the RCIA program for those new to Catholicism\n4. Get involved in our outreach and charity work\n\nContact us to learn more about becoming part of our parish family.'
+    },
+    {
+      id: 'agent',
+      question: 'Chat with an agent',
+      answer: ''
     }
   ]
 
   const handleQuestionClick = (questionId) => {
     const question = predefinedQuestions.find(q => q.id === questionId)
     if (!question) return
+
+    if (questionId === 'agent') {
+      if (!user) {
+        setShowAgentModal(true)
+      } else {
+        // For authenticated users, show a message that agents are unavailable
+        const userMessage = {
+          id: messages.length + 1,
+          type: 'user',
+          content: question.question,
+          timestamp: new Date()
+        }
+        const botMessage = {
+          id: messages.length + 2,
+          type: 'bot',
+          content: 'Our live agents are currently unavailable. Please contact our parish office directly at 225-4763 or email redsdgte@gmail.com for immediate assistance.',
+          timestamp: new Date()
+        }
+        setMessages(prev => [...prev, userMessage, botMessage])
+      }
+      return
+    }
 
     // Add user message
     const userMessage = {
@@ -127,6 +160,14 @@ function Chatbot() {
   const toggleChatbot = () => {
     setIsOpen(!isOpen)
   }
+
+  // Listen to auth state changes
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser)
+    })
+    return unsubscribe
+  }, [])
 
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
@@ -224,6 +265,30 @@ function Chatbot() {
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-1">Or click on a quick question above</p>
+          </div>
+        </div>
+      )}
+
+      {/* Agent Modal */}
+      {showAgentModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-60">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4 text-[#2c3e50]">Chat with Agent</h3>
+            <p className="mb-4 text-gray-700">Sign up first to chat with an agent.</p>
+            <div className="flex gap-2 justify-end">
+              <button
+                onClick={() => setShowAgentModal(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => { setShowAgentModal(false); navigate('/signup'); }}
+                className="px-4 py-2 bg-[#8B4513] text-white rounded-lg hover:bg-[#8B4513]/90 transition-colors"
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
         </div>
       )}
