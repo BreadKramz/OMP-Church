@@ -6,6 +6,7 @@ import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import AdminDashboard from './components/AdminDashboard.jsx'
+import Chatbot from './components/Chatbot.jsx'
 import './App.css'
 
 const logoImage = new URL('./assets/images/Perpetual Church Logo.png', import.meta.url).href
@@ -703,6 +704,9 @@ function Home() {
       </section>
 
       </main>
+
+      {/* Chatbot */}
+      <Chatbot />
 
       {/* Footer */}
       <footer className="bg-[#2c3e50] text-white py-4 shadow-inner">
