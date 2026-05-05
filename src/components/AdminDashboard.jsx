@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../lib/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -18,6 +18,8 @@ function AdminDashboard() {
     phone_number: ''
   })
   const [uid, setUid] = useState(null)
+  const [allUsers, setAllUsers] = useState([])
+  const [viewingUsers, setViewingUsers] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -98,6 +100,23 @@ function AdminDashboard() {
     })
   }
 
+  const fetchAllUsers = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'profiles'))
+      const users = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      setAllUsers(users)
+      setViewingUsers(true)
+    } catch (error) {
+      console.error('Error fetching users:', error)
+      alert('Error fetching users: ' + error.message)
+    }
+  }
+
+  const handleBackToProfile = () => {
+    setViewingUsers(false)
+    setAllUsers([])
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f0ede9] flex items-center justify-center">
@@ -171,90 +190,129 @@ function AdminDashboard() {
             </div>
 
             {profile && (
-              <div className="bg-[#f8f5f0] rounded-lg p-4">
-                <div className="flex justify-between items-center mb-3">
-                  <h2 className="text-lg font-semibold text-[#2c3e50]">Profile Information</h2>
-                  {!isEditing ? (
-                    <button
-                      onClick={handleEdit}
-                      className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#8B4513]/90 transition-all"
-                    >
-                      <i className="fas fa-edit mr-2"></i>
-                      Edit Profile
-                    </button>
-                  ) : (
-                    <div className="flex gap-2">
-                      <button
-                        onClick={handleSave}
-                        className="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700 transition-all"
-                      >
-                        <i className="fas fa-save mr-2"></i>
-                        Save
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        className="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-700 transition-all"
-                      >
-                        <i className="fas fa-times mr-2"></i>
-                        Cancel
-                      </button>
+              <div>
+                {!viewingUsers ? (
+                  <div className="bg-[#f8f5f0] rounded-lg p-4">
+                    <div className="flex justify-between items-center mb-3">
+                      <h2 className="text-lg font-semibold text-[#2c3e50]">Profile Information</h2>
+                      <div className="flex gap-2">
+                        {!isEditing ? (
+                          <>
+                            <button
+                              onClick={handleEdit}
+                              className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#8B4513]/90 transition-all"
+                            >
+                              <i className="fas fa-edit mr-2"></i>
+                              Edit Profile
+                            </button>
+                            <button
+                              onClick={fetchAllUsers}
+                              className="bg-[#2c3e50] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#2c3e50]/90 transition-all"
+                            >
+                              <i className="fas fa-users mr-2"></i>
+                              View All Users
+                            </button>
+                          </>
+                        ) : (
+                          <div className="flex gap-2">
+                            <button
+                              onClick={handleSave}
+                              className="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700 transition-all"
+                            >
+                              <i className="fas fa-save mr-2"></i>
+                              Save
+                            </button>
+                            <button
+                              onClick={handleCancel}
+                              className="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-700 transition-all"
+                            >
+                              <i className="fas fa-times mr-2"></i>
+                              Cancel
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
 
-                {!isEditing ? (
-                  <div className="space-y-2">
-                    <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
-                    <p><span className="font-medium">Email:</span> {profile.email_address}</p>
-                    <p><span className="font-medium">Phone:</span> {profile.phone_number || 'Not provided'}</p>
-                    <p><span className="font-medium">Role:</span> {profile.role}</p>
-                    <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
-                  </div>
-                ) : (
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
-                        <input
-                          type="text"
-                          name="first_name"
-                          value={editForm.first_name}
-                          onChange={handleFormChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
-                        <input
-                          type="text"
-                          name="last_name"
-                          value={editForm.last_name}
-                          onChange={handleFormChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
-                      <input
-                        type="tel"
-                        name="phone_number"
-                        value={editForm.phone_number}
-                        onChange={handleFormChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-                        placeholder="(035) 123-4567"
-                      />
-                    </div>
-                    <div className="pt-2 border-t border-gray-200">
-                      <p className="text-xs text-gray-500">Email and role cannot be changed.</p>
-                      <div className="mt-2 space-y-1">
+                    {!isEditing ? (
+                      <div className="space-y-2">
+                        <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
                         <p><span className="font-medium">Email:</span> {profile.email_address}</p>
+                        <p><span className="font-medium">Phone:</span> {profile.phone_number || 'Not provided'}</p>
                         <p><span className="font-medium">Role:</span> {profile.role}</p>
                         <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
                       </div>
+                    ) : (
+                      <form className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
+                            <input
+                              type="text"
+                              name="first_name"
+                              value={editForm.first_name}
+                              onChange={handleFormChange}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
+                            <input
+                              type="text"
+                              name="last_name"
+                              value={editForm.last_name}
+                              onChange={handleFormChange}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+                          <input
+                            type="tel"
+                            name="phone_number"
+                            value={editForm.phone_number}
+                            onChange={handleFormChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                            placeholder="(035) 123-4567"
+                          />
+                        </div>
+                        <div className="pt-2 border-t border-gray-200">
+                          <p className="text-xs text-gray-500">Email and role cannot be changed.</p>
+                          <div className="mt-2 space-y-1">
+                            <p><span className="font-medium">Email:</span> {profile.email_address}</p>
+                            <p><span className="font-medium">Role:</span> {profile.role}</p>
+                            <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
+                          </div>
+                        </div>
+                      </form>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-[#f8f5f0] rounded-lg p-4">
+                    <div className="flex justify-between items-center mb-4">
+                      <h2 className="text-lg font-semibold text-[#2c3e50]">All Users ({allUsers.length})</h2>
+                      <button
+                        onClick={handleBackToProfile}
+                        className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#8B4513]/90 transition-all"
+                      >
+                        <i className="fas fa-arrow-left mr-2"></i>
+                        Back to Profile
+                      </button>
                     </div>
-                  </form>
+                    <div className="space-y-3 max-h-96 overflow-y-auto">
+                      {allUsers.map(user => (
+                        <div key={user.id} className="bg-white p-3 rounded-lg shadow-sm border">
+                          <p><span className="font-medium">Name:</span> {user.first_name} {user.last_name}</p>
+                          <p><span className="font-medium">Email:</span> {user.email_address}</p>
+                          <p><span className="font-medium">Phone:</span> {user.phone_number || 'Not provided'}</p>
+                          <p><span className="font-medium">Role:</span> {user.role}</p>
+                          <p><span className="font-medium">Member since:</span> {new Date(user.created_at).toLocaleDateString()}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
             )}
