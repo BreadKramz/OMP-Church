@@ -22,6 +22,7 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -39,8 +40,28 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('') // Clear previous errors
+
+    // Password validation
+    if (formData.password.length < 6) {
+      setError('Password must be at least 6 characters')
+      return
+    }
+    if (!/(?=.*[a-z])/.test(formData.password)) {
+      setError('Password must contain at least one lowercase letter')
+      return
+    }
+    if (!/(?=.*[A-Z])/.test(formData.password)) {
+      setError('Password must contain at least one uppercase letter')
+      return
+    }
+    if (!/(?=.*\d)/.test(formData.password)) {
+      setError('Password must contain at least one number')
+      return
+    }
+
     if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match')
+      setError('Passwords do not match')
       return
     }
     try {
@@ -59,9 +80,9 @@ function Signup() {
       setShowModal(true)
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        alert('This email is already in use. If you recently deleted an account, please wait a few minutes or try a different email address.')
+        setError('This email is already in use. If you recently deleted an account, please wait a few minutes or try a different email address.')
       } else {
-        alert(error.message)
+        setError(error.message)
       }
     }
   }
@@ -250,6 +271,12 @@ function Signup() {
           >
             Create Account
           </button>
+
+          {error && (
+            <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded">
+              <p className="text-red-600 text-xs">{error}</p>
+            </div>
+          )}
         </form>
 
         <div className="text-center mt-3">
