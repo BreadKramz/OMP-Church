@@ -126,17 +126,17 @@ function Chatbot() {
     }
 
     // Find matching predefined question
-    const matchedQuestion = predefinedQuestions.find(q =>
+    const matchedQuestion = userInput.length >= 4 ? predefinedQuestions.find(q =>
       q.question.toLowerCase().includes(userInput) ||
       userInput.includes(q.question.toLowerCase().replace('?', '').replace('what ', '').replace('how ', '').replace('where ', '').replace('when ', ''))
-    )
+    ) : null
 
     let botResponse
     if (matchedQuestion) {
       botResponse = matchedQuestion.answer
     } else {
       // Default response for unrecognized questions
-      botResponse = "Thank you for your question! For more detailed information or specific inquiries, please contact our parish office at 225-4763 or email redsdgte@gmail.com. We'd be happy to assist you personally!"
+      botResponse = "I'm sorry, I don't understand your message. Please try one of the quick questions above, or contact our parish office at 225-4763 or email redsdgte@gmail.com for additional questions."
     }
 
     const botMessage = {
