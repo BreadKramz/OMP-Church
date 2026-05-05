@@ -16,6 +16,7 @@ function Login() {
 
   const [showPassword, setShowPassword] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -33,11 +34,16 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setError('') // Clear previous errors
     try {
       await signInWithEmailAndPassword(auth, formData.email, formData.password)
       setShowModal(true)
     } catch (error) {
-      alert(error.message)
+      if (error.code === 'auth/invalid-credential') {
+        setError('Invalid email or password. Please try again.')
+      } else {
+        setError(error.message)
+      }
     }
   }
 
@@ -163,6 +169,12 @@ function Login() {
           >
             Sign In
           </button>
+
+          {error && (
+            <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded">
+              <p className="text-red-600 text-xs">{error}</p>
+            </div>
+          )}
         </form>
 
         <div className="text-center mt-3">
