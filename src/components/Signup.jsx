@@ -58,7 +58,11 @@ function Signup() {
       })
       setShowModal(true)
     } catch (error) {
-      alert(error.message)
+      if (error.code === 'auth/email-already-in-use') {
+        alert('This email is already in use. If you recently deleted an account, please wait a few minutes or try a different email address.')
+      } else {
+        alert(error.message)
+      }
     }
   }
 
