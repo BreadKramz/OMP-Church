@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 function Chatbot() {
   const [isOpen, setIsOpen] = useState(false)
@@ -10,6 +10,8 @@ function Chatbot() {
       timestamp: new Date()
     }
   ])
+  const [inputMessage, setInputMessage] = useState('')
+  const messagesEndRef = useRef(null)
 
   const predefinedQuestions = [
     {
@@ -77,9 +79,61 @@ function Chatbot() {
     setMessages(prev => [...prev, userMessage, botMessage])
   }
 
+  const handleSendMessage = () => {
+    if (!inputMessage.trim()) return
+
+    const userInput = inputMessage.trim().toLowerCase()
+
+    // Add user message
+    const userMessage = {
+      id: messages.length + 1,
+      type: 'user',
+      content: inputMessage,
+      timestamp: new Date()
+    }
+
+    // Find matching predefined question
+    const matchedQuestion = predefinedQuestions.find(q =>
+      q.question.toLowerCase().includes(userInput) ||
+      userInput.includes(q.question.toLowerCase().replace('?', '').replace('what ', '').replace('how ', '').replace('where ', '').replace('when ', ''))
+    )
+
+    let botResponse
+    if (matchedQuestion) {
+      botResponse = matchedQuestion.answer
+    } else {
+      // Default response for unrecognized questions
+      botResponse = "Thank you for your question! For more detailed information or specific inquiries, please contact our parish office at 225-4763 or email redsdgte@gmail.com. We'd be happy to assist you personally!"
+    }
+
+    const botMessage = {
+      id: messages.length + 2,
+      type: 'bot',
+      content: botResponse,
+      timestamp: new Date()
+    }
+
+    setMessages(prev => [...prev, userMessage, botMessage])
+    setInputMessage('')
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
+
   const toggleChatbot = () => {
     setIsOpen(!isOpen)
   }
+
+  // Auto-scroll to bottom when new messages are added
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [messages])
 
   return (
     <>
@@ -96,7 +150,7 @@ function Chatbot() {
 
       {/* Chatbot Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-80 h-96 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
+        <div className="fixed bottom-24 right-6 z-50 w-96 h-[600px] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
           {/* Header */}
           <div className="bg-[#8B4513] text-white p-4 flex items-center gap-3">
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
@@ -116,7 +170,7 @@ function Chatbot() {
                 className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-[80%] p-3 rounded-2xl text-sm ${
+                  className={`max-w-[85%] p-3 rounded-2xl text-sm ${
                     message.type === 'user'
                       ? 'bg-[#8B4513] text-white rounded-br-md'
                       : 'bg-white text-gray-800 rounded-bl-md shadow-sm border border-gray-100'
@@ -131,12 +185,13 @@ function Chatbot() {
                 </div>
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Quick Questions */}
-          <div className="p-4 border-t border-gray-200 bg-white">
+          <div className="p-3 border-t border-gray-200 bg-white max-h-40 overflow-y-auto">
             <p className="text-xs text-gray-600 mb-2 font-medium">Quick Questions:</p>
-            <div className="grid grid-cols-1 gap-2 max-h-32 overflow-y-auto">
+            <div className="grid grid-cols-1 gap-1.5">
               {predefinedQuestions.map((q) => (
                 <button
                   key={q.id}
@@ -147,6 +202,28 @@ function Chatbot() {
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Message Input */}
+          <div className="p-4 border-t border-gray-200 bg-white">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={inputMessage}
+                onChange={(e) => setInputMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Type your message here..."
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent text-sm"
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={!inputMessage.trim()}
+                className="px-4 py-2 bg-[#8B4513] text-white rounded-lg hover:bg-[#8B4513]/90 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+              >
+                <i className="fas fa-paper-plane"></i>
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-1">Or click on a quick question above</p>
           </div>
         </div>
       )}
