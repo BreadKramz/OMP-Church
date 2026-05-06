@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { collection, doc, getDoc, setDoc, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from '../lib/firebase'
+import { auth, db } from '../lib/firebase'
 
 function Chatbot() {
   const navigate = useNavigate()
@@ -16,6 +17,7 @@ function Chatbot() {
   ])
   const [inputMessage, setInputMessage] = useState('')
   const [user, setUser] = useState(null)
+  const [chatId, setChatId] = useState(null)
   const [showAgentModal, setShowAgentModal] = useState(false)
   const messagesEndRef = useRef(null)
 
@@ -67,7 +69,30 @@ function Chatbot() {
     }
   ]
 
-  const handleQuestionClick = (questionId) => {
+  const sendUserChatMessage = async (content) => {
+    const uid = user.uid
+    const chatRef = doc(db, 'chats', uid)
+
+    await setDoc(
+      chatRef,
+      {
+        userId: uid,
+        email: user.email,
+        name: user.displayName || user.email,
+        lastMessage: content,
+        updatedAt: serverTimestamp()
+      },
+      { merge: true }
+    )
+
+    await addDoc(collection(db, 'chats', uid, 'messages'), {
+      sender: 'user',
+      content,
+      createdAt: serverTimestamp()
+    })
+  }
+
+  const handleQuestionClick = async (questionId) => {
     const question = predefinedQuestions.find(q => q.id === questionId)
     if (!question) return
 
@@ -75,25 +100,27 @@ function Chatbot() {
       if (!user) {
         setShowAgentModal(true)
       } else {
-        // For authenticated users, show a message that agents are unavailable
+        const content = question.question
         const userMessage = {
           id: messages.length + 1,
+          sender: 'user',
           type: 'user',
-          content: question.question,
+          content,
           timestamp: new Date()
         }
         const botMessage = {
           id: messages.length + 2,
+          sender: 'bot',
           type: 'bot',
-          content: 'Our live agents are currently unavailable. Please contact our parish office directly at 225-4763 or email redsdgte@gmail.com for immediate assistance.',
+          content: 'Your request has been sent to the admin. They will reply here shortly.',
           timestamp: new Date()
         }
         setMessages(prev => [...prev, userMessage, botMessage])
+        await sendUserChatMessage(content)
       }
       return
     }
 
-    // Add user message
     const userMessage = {
       id: messages.length + 1,
       type: 'user',
@@ -101,7 +128,6 @@ function Chatbot() {
       timestamp: new Date()
     }
 
-    // Add bot response
     const botMessage = {
       id: messages.length + 2,
       type: 'bot',
@@ -112,20 +138,47 @@ function Chatbot() {
     setMessages(prev => [...prev, userMessage, botMessage])
   }
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputMessage.trim()) return
 
-    const userInput = inputMessage.trim().toLowerCase()
+    const messageText = inputMessage.trim()
 
-    // Add user message
+    if (user) {
+      const userMessage = {
+        id: messages.length + 1,
+        sender: 'user',
+        type: 'user',
+        content: messageText,
+        timestamp: new Date()
+      }
+      const botMessage = {
+        id: messages.length + 2,
+        sender: 'bot',
+        type: 'bot',
+        content: 'Your message has been sent to the admin. They will reply here shortly.',
+        timestamp: new Date()
+      }
+
+      setMessages(prev => [...prev, userMessage, botMessage])
+      setInputMessage('')
+
+      try {
+        await sendUserChatMessage(messageText)
+      } catch (error) {
+        console.error('Failed to send chat message:', error)
+      }
+      return
+    }
+
+    const userInput = messageText.toLowerCase()
+
     const userMessage = {
       id: messages.length + 1,
       type: 'user',
-      content: inputMessage,
+      content: messageText,
       timestamp: new Date()
     }
 
-    // Find matching predefined question
     const matchedQuestion = userInput.length >= 4 ? predefinedQuestions.find(q =>
       q.question.toLowerCase().includes(userInput) ||
       userInput.includes(q.question.toLowerCase().replace('?', '').replace('what ', '').replace('how ', '').replace('where ', '').replace('when ', ''))
@@ -135,7 +188,6 @@ function Chatbot() {
     if (matchedQuestion) {
       botResponse = matchedQuestion.answer
     } else {
-      // Default response for unrecognized questions
       botResponse = "I'm sorry, I don't understand your message. Please try one of the quick questions above, or contact our parish office at 225-4763 or email redsdgte@gmail.com for additional questions."
     }
 
@@ -168,6 +220,38 @@ function Chatbot() {
     })
     return unsubscribe
   }, [])
+
+  useEffect(() => {
+    if (!user) {
+      setChatId(null)
+      return
+    }
+
+    const uid = user.uid
+    setChatId(uid)
+
+    const messagesQuery = query(collection(db, 'chats', uid, 'messages'), orderBy('createdAt'))
+    const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+      if (!snapshot.empty) {
+        const firestoreMessages = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        setMessages(firestoreMessages.map((message) => ({
+          ...message,
+          type: message.sender === 'user' ? 'user' : 'bot'
+        })))
+      } else {
+        setMessages([
+          {
+            id: 1,
+            type: 'bot',
+            content: 'Hello! Welcome to Our Mother of Perpetual Help. How can I help you today?',
+            timestamp: new Date()
+          }
+        ])
+      }
+    })
+
+    return unsubscribe
+  }, [user])
 
   // Auto-scroll to bottom when new messages are added
   useEffect(() => {
@@ -205,27 +289,31 @@ function Chatbot() {
 
           {/* Messages */}
           <div className="flex-1 p-4 space-y-3 overflow-y-auto bg-[#f8f5f0]">
-            {messages.map((message) => (
-              <div
-                key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-              >
+            {messages.map((message) => {
+              const isUserMessage = message.sender === 'user' || message.type === 'user'
+              const displayTimestamp = message.timestamp?.toDate ? message.timestamp.toDate() : message.timestamp
+              return (
                 <div
-                  className={`max-w-[85%] p-3 rounded-2xl text-sm ${
-                    message.type === 'user'
-                      ? 'bg-[#8B4513] text-white rounded-br-md'
-                      : 'bg-white text-gray-800 rounded-bl-md shadow-sm border border-gray-100'
-                  }`}
+                  key={message.id}
+                  className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'}`}
                 >
-                  <p className="whitespace-pre-line">{message.content}</p>
-                  <p className={`text-xs mt-1 ${
-                    message.type === 'user' ? 'text-white/70' : 'text-gray-500'
-                  }`}>
-                    {message.timestamp.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
-                  </p>
+                  <div
+                    className={`max-w-[85%] p-3 rounded-2xl text-sm ${
+                      isUserMessage
+                        ? 'bg-[#8B4513] text-white rounded-br-md'
+                        : 'bg-white text-gray-800 rounded-bl-md shadow-sm border border-gray-100'
+                    }`}
+                  >
+                    <p className="whitespace-pre-line">{message.content}</p>
+                    <p className={`text-xs mt-1 ${
+                      isUserMessage ? 'text-white/70' : 'text-gray-500'
+                    }`}>
+                      {displayTimestamp ? displayTimestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
             <div ref={messagesEndRef} />
           </div>
 

@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../lib/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { doc, getDoc, setDoc, collection, getDocs } from 'firebase/firestore'
+import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -20,6 +20,12 @@ function AdminDashboard() {
   const [uid, setUid] = useState(null)
   const [allUsers, setAllUsers] = useState([])
   const [viewingUsers, setViewingUsers] = useState(false)
+  const [chatList, setChatList] = useState([])
+  const [selectedChatId, setSelectedChatId] = useState(null)
+  const [selectedChat, setSelectedChat] = useState(null)
+  const [chatMessages, setChatMessages] = useState([])
+  const [adminMessage, setAdminMessage] = useState('')
+  const chatMessagesUnsubRef = useRef(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -50,6 +56,69 @@ function AdminDashboard() {
     })
     return unsubscribe
   }, [navigate])
+
+  useEffect(() => {
+    const chatsQuery = query(collection(db, 'chats'), orderBy('updatedAt', 'desc'))
+    const unsubscribe = onSnapshot(chatsQuery, (snapshot) => {
+      const chats = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      setChatList(chats)
+    })
+    return unsubscribe
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (chatMessagesUnsubRef.current) {
+        chatMessagesUnsubRef.current()
+      }
+    }
+  }, [])
+
+  const selectChat = (chat) => {
+    if (selectedChatId === chat.id) return
+    setSelectedChatId(chat.id)
+    setSelectedChat(chat)
+    setChatMessages([])
+    if (chatMessagesUnsubRef.current) {
+      chatMessagesUnsubRef.current()
+    }
+    const messagesQuery = query(collection(db, 'chats', chat.id, 'messages'), orderBy('createdAt'))
+    chatMessagesUnsubRef.current = onSnapshot(messagesQuery, (snapshot) => {
+      const messages = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+      setChatMessages(messages)
+    })
+  }
+
+  const handleSendAdminMessage = async () => {
+    if (!selectedChatId || !adminMessage.trim()) return
+
+    try {
+      const content = adminMessage.trim()
+      await addDoc(collection(db, 'chats', selectedChatId, 'messages'), {
+        sender: 'admin',
+        content,
+        createdAt: serverTimestamp()
+      })
+      await setDoc(
+        doc(db, 'chats', selectedChatId),
+        {
+          lastMessage: content,
+          updatedAt: serverTimestamp()
+        },
+        { merge: true }
+      )
+      setAdminMessage('')
+    } catch (error) {
+      console.error('Error sending admin message:', error)
+      alert('Error sending message: ' + error.message)
+    }
+  }
+
+  const formatTimestamp = (timestamp) => {
+    if (!timestamp) return ''
+    const date = timestamp.toDate ? timestamp.toDate() : timestamp instanceof Date ? timestamp : new Date(timestamp)
+    return date.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
+  }
 
   const handleLogout = async () => {
     await signOut(auth)
@@ -316,6 +385,89 @@ function AdminDashboard() {
                 )}
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-bold text-[#2c3e50]">Agent Chat</h2>
+              <p className="text-gray-600">View active user conversations and reply directly as the admin.</p>
+            </div>
+            <div className="grid lg:grid-cols-[280px_1fr] gap-4">
+              <div className="bg-[#f8f5f0] rounded-2xl p-4 h-[520px] overflow-y-auto border border-[#8B4513]/10">
+                <h3 className="text-sm font-semibold text-[#2c3e50] mb-3">Active Chats</h3>
+                {chatList.length === 0 ? (
+                  <p className="text-xs text-gray-500">No active chats yet. Users will appear here when they send a message.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {chatList.map((chat) => (
+                      <button
+                        key={chat.id}
+                        onClick={() => selectChat(chat)}
+                        className={`w-full text-left p-3 rounded-2xl transition-all border ${selectedChatId === chat.id ? 'border-[#8B4513] bg-white shadow-lg' : 'border-transparent bg-white/80 hover:border-[#8B4513]/50 hover:bg-white'} `}
+                      >
+                        <div className="flex items-center justify-between gap-2 mb-1">
+                          <p className="text-sm font-semibold text-[#2c3e50] truncate">{chat.name || chat.email}</p>
+                          <span className="text-[10px] uppercase tracking-[0.2em] text-[#8B4513]">{chat.id === selectedChatId ? 'Open' : 'New'}</span>
+                        </div>
+                        <p className="text-xs text-gray-600 truncate">{chat.lastMessage || 'Waiting for user'}</p>
+                        <p className="text-[10px] text-gray-500 mt-1">{chat.updatedAt ? new Date(chat.updatedAt.toDate ? chat.updatedAt.toDate() : chat.updatedAt).toLocaleString([], { hour: '2-digit', minute: '2-digit' }) : ''}</p>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-[#f8f5f0] rounded-2xl p-4 h-[520px] flex flex-col border border-[#8B4513]/10">
+                {selectedChat ? (
+                  <>
+                    <div className="mb-4">
+                      <h3 className="text-sm font-semibold text-[#2c3e50]">Conversation with {selectedChat.name || selectedChat.email}</h3>
+                      <p className="text-xs text-gray-500">User ID: {selectedChat.id}</p>
+                    </div>
+                    <div className="flex-1 overflow-y-auto space-y-3 p-2 bg-white rounded-2xl border border-gray-100">
+                      {chatMessages.length === 0 ? (
+                        <p className="text-xs text-gray-500">This conversation is starting. Send the first message.</p>
+                      ) : (
+                        chatMessages.map((message) => {
+                          const isUserMessage = message.sender === 'user'
+                          const timestamp = message.createdAt?.toDate ? message.createdAt.toDate() : message.createdAt
+                          return (
+                            <div key={message.id} className={`rounded-2xl p-3 ${isUserMessage ? 'bg-white border border-gray-200 self-start' : 'bg-[#8B4513] text-white self-end'} max-w-[85%]`}>
+                              <p className="text-sm leading-relaxed">{message.content}</p>
+                              <p className={`text-[10px] mt-2 ${isUserMessage ? 'text-gray-500' : 'text-white/70'}`}>
+                                {timestamp ? timestamp.toLocaleString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                              </p>
+                            </div>
+                          )
+                        })
+                      )}
+                    </div>
+                    <div className="mt-4">
+                      <textarea
+                        value={adminMessage}
+                        onChange={(e) => setAdminMessage(e.target.value)}
+                        rows={3}
+                        className="w-full rounded-2xl border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-[#8B4513] focus:border-transparent"
+                        placeholder="Type your reply to the user..."
+                      />
+                      <button
+                        onClick={handleSendAdminMessage}
+                        className="mt-3 inline-flex items-center justify-center rounded-full bg-[#8B4513] px-4 py-2 text-sm font-semibold text-white hover:bg-[#8B4513]/90 transition-all"
+                      >
+                        Send Reply
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex h-full flex-col items-center justify-center text-center text-gray-500">
+                    <p className="text-sm font-semibold">Select a chat from the left to view messages.</p>
+                    <p className="text-xs mt-2">You can reply to users directly from here.</p>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </div>
