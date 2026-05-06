@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../lib/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { doc, getDoc, setDoc } from 'firebase/firestore'
+import Chatbot from './Chatbot.jsx'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -274,6 +275,8 @@ function Dashboard() {
           </div>
         </div>
       </div>
+
+      <Chatbot />
 
       {/* Footer */}
       <footer className="bg-[#2c3e50] text-white py-4 shadow-inner">
