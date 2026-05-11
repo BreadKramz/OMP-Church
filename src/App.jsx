@@ -6,6 +6,8 @@ import Login from './components/Login.jsx'
 import Signup from './components/Signup.jsx'
 import Dashboard from './components/Dashboard.jsx'
 import AdminDashboard from './components/AdminDashboard.jsx'
+import Certificates from './components/Certificates.jsx'
+import Services from './components/Services.jsx'
 import Chatbot from './components/Chatbot.jsx'
 import './App.css'
 
@@ -727,6 +729,8 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/admin-dashboard" element={<AdminDashboard />} />
+      <Route path="/certificates" element={<Certificates />} />
+      <Route path="/services" element={<Services />} />
       <Route path="/" element={<Home />} />
     </Routes>
   )
