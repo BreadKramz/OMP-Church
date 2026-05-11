@@ -305,29 +305,32 @@ function Chatbot() {
                     {isAdminMessage && <p className="text-xs font-semibold text-blue-800 mb-1">Admin</p>}
                     <p className="whitespace-pre-line">{message.content}</p>
                     {message.type === 'bot' && chatMode === 'chatbot' && messages[messages.length - 1].id === message.id && showContinueButtons && (
-                      <div className="flex gap-1 mt-2 justify-end">
-                        <button
-                          onClick={() => setShowContinueButtons(false)}
-                          className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700"
-                        >
-                          Yes
-                        </button>
-                        <button
-                          onClick={() => {
-                            setShowContinueButtons(false)
-                            setMessages([
-                              {
-                                id: 1,
-                                type: 'bot',
-                                content: 'Hello! Welcome to Our Mother of Perpetual Help. How can I help you today?',
-                                timestamp: new Date()
-                              }
-                            ])
-                          }}
-                          className="px-2 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700"
-                        >
-                          No
-                        </button>
+                      <div className="mt-2">
+                        <p className="text-xs text-gray-500 mb-1">Do you wish to continue?</p>
+                        <div className="flex gap-1 justify-end">
+                          <button
+                            onClick={() => setShowContinueButtons(false)}
+                            className="px-2 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700"
+                          >
+                            Yes
+                          </button>
+                          <button
+                            onClick={() => {
+                              setShowContinueButtons(false)
+                              setMessages([
+                                {
+                                  id: 1,
+                                  type: 'bot',
+                                  content: 'Hello! Welcome to Our Mother of Perpetual Help. How can I help you today?',
+                                  timestamp: new Date()
+                                }
+                              ])
+                            }}
+                            className="px-2 py-1 bg-red-600 text-white rounded text-xs hover:bg-red-700"
+                          >
+                            No
+                          </button>
+                        </div>
                       </div>
                     )}
                     <p className={`text-xs mt-1 ${
