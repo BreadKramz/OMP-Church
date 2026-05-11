@@ -18,6 +18,36 @@ function Dashboard() {
     last_name: '',
     phone_number: ''
   })
+  const [showCertificatesForm, setShowCertificatesForm] = useState(false)
+  const [showServicesForm, setShowServicesForm] = useState(false)
+  const [selectedCertificate, setSelectedCertificate] = useState('')
+  const [selectedService, setSelectedService] = useState('')
+
+  const certificates = [
+    'Outstanding Service Award',
+    'Volunteer Service Certificate',
+    'Youth Ministry Service Award',
+    'Choir Service Recognition',
+    'Ushering Service Certificate',
+    'Media Ministry Recognition',
+    'Church Leadership Award',
+    'Bible Study Participation Certificate',
+    'Missionary Service Certificate',
+    'Community Outreach Recognition'
+  ]
+
+  const services = [
+    'Certificate of Baptism',
+    'Certificate of Confirmation',
+    'Certificate of First Communion',
+    'Certificate of Marriage',
+    'Certificate of Membership',
+    'Certificate of Dedication',
+    'Certificate of Appreciation',
+    'Certificate of Recognition',
+    'Certificate of Participation',
+    'Certificate of Service'
+  ]
 
   const getUser = useCallback(async () => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -272,11 +302,108 @@ function Dashboard() {
                 )}
               </div>
             )}
+
+            {/* Certificates and Services */}
+            <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+              <h2 className="text-xl font-bold text-[#2c3e50] mb-4">Request Certificates</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <div
+                  className="bg-[#f8f5f0] rounded-lg p-4 border border-[#8B4513]/20 hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => setShowCertificatesForm(true)}
+                >
+                  <h3 className="text-lg font-semibold text-[#8B4513] mb-2">Certificates</h3>
+                  <p className="text-gray-600 text-sm">Request service and participation certificates</p>
+                </div>
+                <div
+                  className="bg-[#f8f5f0] rounded-lg p-4 border border-[#8B4513]/20 hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => setShowServicesForm(true)}
+                >
+                  <h3 className="text-lg font-semibold text-[#8B4513] mb-2">Services</h3>
+                  <p className="text-gray-600 text-sm">Request sacramental and membership certificates</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <Chatbot />
+
+      {/* Certificates Form Modal */}
+      {showCertificatesForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+            <h3 className="text-lg font-bold mb-4 text-[#2c3e50]">Request Certificate</h3>
+            <form onSubmit={(e) => { e.preventDefault(); alert(`Requested: ${selectedCertificate}`); setShowCertificatesForm(false); setSelectedCertificate(''); }}>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Select Certificate</label>
+              <select
+                value={selectedCertificate}
+                onChange={(e) => setSelectedCertificate(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-[#8B4513] focus:border-transparent"
+                required
+              >
+                <option value="">Choose...</option>
+                {certificates.map(cert => (
+                  <option key={cert} value={cert}>{cert}</option>
+                ))}
+              </select>
+              <div className="flex gap-2 justify-end">
+                <button
+                  type="button"
+                  onClick={() => { setShowCertificatesForm(false); setSelectedCertificate(''); }}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#8B4513] text-white rounded-lg hover:bg-[#8B4513]/90 transition-colors"
+                >
+                  Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Services Form Modal */}
+      {showServicesForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+            <h3 className="text-lg font-bold mb-4 text-[#2c3e50]">Request Service Certificate</h3>
+            <form onSubmit={(e) => { e.preventDefault(); alert(`Requested: ${selectedService}`); setShowServicesForm(false); setSelectedService(''); }}>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Select Service Certificate</label>
+              <select
+                value={selectedService}
+                onChange={(e) => setSelectedService(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg mb-4 focus:ring-2 focus:ring-[#8B4513] focus:border-transparent"
+                required
+              >
+                <option value="">Choose...</option>
+                {services.map(service => (
+                  <option key={service} value={service}>{service}</option>
+                ))}
+              </select>
+              <div className="flex gap-2 justify-end">
+                <button
+                  type="button"
+                  onClick={() => { setShowServicesForm(false); setSelectedService(''); }}
+                  className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#8B4513] text-white rounded-lg hover:bg-[#8B4513]/90 transition-colors"
+                >
+                  Request
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="bg-[#2c3e50] text-white py-4 shadow-inner">
