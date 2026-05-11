@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { collection, doc, getDoc, setDoc, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, doc, setDoc, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from '../lib/firebase'
 
@@ -17,9 +17,9 @@ function Chatbot() {
   ])
   const [inputMessage, setInputMessage] = useState('')
   const [user, setUser] = useState(null)
-  const [chatId, setChatId] = useState(null)
   const [showAgentModal, setShowAgentModal] = useState(false)
   const [chatMode, setChatMode] = useState('chatbot')
+  const [showContinueButtons, setShowContinueButtons] = useState(false)
   const messagesEndRef = useRef(null)
 
   const predefinedQuestions = [
@@ -121,6 +121,7 @@ function Chatbot() {
     }
 
     setMessages(prev => [...prev, userMessage, botMessage])
+    setShowContinueButtons(true)
   }
 
   const handleSendMessage = async () => {
@@ -172,6 +173,7 @@ function Chatbot() {
 
     setMessages(prev => [...prev, userMessage, botMessage])
     setInputMessage('')
+    setShowContinueButtons(true)
   }
 
   const handleKeyPress = (e) => {
@@ -195,7 +197,7 @@ function Chatbot() {
 
   useEffect(() => {
     if (!user) {
-      setChatId(null)
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMessages([
         {
           id: 1,
@@ -204,11 +206,12 @@ function Chatbot() {
           timestamp: new Date()
         }
       ])
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowContinueButtons(false)
       return
     }
 
     const uid = user.uid
-    setChatId(uid)
 
     const messagesQuery = query(collection(db, 'chats', uid, 'messages'), orderBy('createdAt'))
     const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
@@ -227,6 +230,7 @@ function Chatbot() {
             timestamp: new Date()
           }
         ])
+        setShowContinueButtons(false)
       }
     })
 
@@ -311,6 +315,34 @@ function Chatbot() {
             })}
             <div ref={messagesEndRef} />
           </div>
+
+          {/* Continue Buttons */}
+          {showContinueButtons && chatMode === 'chatbot' && messages.length > 0 && messages[messages.length - 1].type === 'bot' && (
+            <div className="p-3 border-t border-gray-200 bg-white flex justify-center gap-2">
+              <button
+                onClick={() => setShowContinueButtons(false)}
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-semibold transition-colors"
+              >
+                Yes, continue
+              </button>
+              <button
+                onClick={() => {
+                  setShowContinueButtons(false)
+                  setMessages([
+                    {
+                      id: 1,
+                      type: 'bot',
+                      content: 'Hello! Welcome to Our Mother of Perpetual Help. How can I help you today?',
+                      timestamp: new Date()
+                    }
+                  ])
+                }}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-semibold transition-colors"
+              >
+                No, reset chat
+              </button>
+            </div>
+          )}
 
           {/* Quick Questions - Only show in chatbot mode */}
           {chatMode === 'chatbot' && (
