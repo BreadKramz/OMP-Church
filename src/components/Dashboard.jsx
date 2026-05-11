@@ -13,6 +13,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
+  const [showProfileDetails, setShowProfileDetails] = useState(false)
   const [editForm, setEditForm] = useState({
     first_name: '',
     last_name: '',
@@ -216,89 +217,103 @@ function Dashboard() {
 
             {profile && (
               <div className="bg-[#f8f5f0] rounded-lg p-4">
-                <div className="flex justify-between items-center mb-3">
-                  <h2 className="text-lg font-semibold text-[#2c3e50]">Profile Information</h2>
-                  {!isEditing ? (
-                    <button
-                      onClick={handleEdit}
-                      className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#8B4513]/90 transition-all"
-                    >
-                      <i className="fas fa-edit mr-2"></i>
-                      Edit Profile
-                    </button>
-                  ) : (
-                    <div className="flex gap-2">
-                      <button
-                        onClick={handleSave}
-                        className="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700 transition-all"
-                      >
-                        <i className="fas fa-save mr-2"></i>
-                        Save
-                      </button>
-                      <button
-                        onClick={handleCancel}
-                        className="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-700 transition-all"
-                      >
-                        <i className="fas fa-times mr-2"></i>
-                        Cancel
-                      </button>
+                <div className="mb-3">
+                  <h2
+                    onClick={() => setShowProfileDetails(!showProfileDetails)}
+                    className="text-lg font-semibold text-[#2c3e50] cursor-pointer flex items-center justify-between"
+                  >
+                    Profile Information
+                    <i className={`fas fa-chevron-${showProfileDetails ? 'up' : 'down'}`}></i>
+                  </h2>
+                  {showProfileDetails && (
+                    <div className="flex justify-end mt-3">
+                      {!isEditing ? (
+                        <button
+                          onClick={handleEdit}
+                          className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-[#8B4513]/90 transition-all"
+                        >
+                          <i className="fas fa-edit mr-2"></i>
+                          Edit Profile
+                        </button>
+                      ) : (
+                        <div className="flex gap-2">
+                          <button
+                            onClick={handleSave}
+                            className="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-green-700 transition-all"
+                          >
+                            <i className="fas fa-save mr-2"></i>
+                            Save
+                          </button>
+                          <button
+                            onClick={handleCancel}
+                            className="bg-gray-600 text-white px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-700 transition-all"
+                          >
+                            <i className="fas fa-times mr-2"></i>
+                            Cancel
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
 
-                {!isEditing ? (
-                  <div className="space-y-2">
-                    <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
-                    <p><span className="font-medium">Email:</span> {profile.email_address}</p>
-                    <p><span className="font-medium">Phone:</span> {profile.phone_number || 'Not provided'}</p>
-                    <p><span className="font-medium">Role:</span> {profile.role}</p>
-                    <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
-                  </div>
-                ) : (
-                  <form className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
-                        <input
-                          type="text"
-                          name="first_name"
-                          value={editForm.first_name}
-                          onChange={handleFormChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-                          required
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
-                        <input
-                          type="text"
-                          name="last_name"
-                          value={editForm.last_name}
-                          onChange={handleFormChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
-                      <input
-                        type="tel"
-                        name="phone_number"
-                        value={editForm.phone_number}
-                        onChange={handleFormChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
-                        placeholder="(035) 123-4567"
-                      />
-                    </div>
-                    <div className="pt-2 border-t border-gray-200">
-                      <p className="text-xs text-gray-500">Email and role cannot be changed.</p>
-                      <div className="mt-2 space-y-1">
+                {showProfileDetails && (
+                  <>
+                    {!isEditing ? (
+                      <div className="space-y-2">
+                        <p><span className="font-medium">Name:</span> {profile.first_name} {profile.last_name}</p>
                         <p><span className="font-medium">Email:</span> {profile.email_address}</p>
+                        <p><span className="font-medium">Phone:</span> {profile.phone_number || 'Not provided'}</p>
                         <p><span className="font-medium">Role:</span> {profile.role}</p>
                         <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
                       </div>
-                    </div>
-                  </form>
+                    ) : (
+                      <form className="space-y-4">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">First Name</label>
+                            <input
+                              type="text"
+                              name="first_name"
+                              value={editForm.first_name}
+                              onChange={handleFormChange}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-1">Last Name</label>
+                            <input
+                              type="text"
+                              name="last_name"
+                              value={editForm.last_name}
+                              onChange={handleFormChange}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                            />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-gray-700 mb-1">Phone Number</label>
+                          <input
+                            type="tel"
+                            name="phone_number"
+                            value={editForm.phone_number}
+                            onChange={handleFormChange}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#8B4513] focus:border-transparent transition-all"
+                            placeholder="(035) 123-4567"
+                          />
+                        </div>
+                        <div className="pt-2 border-t border-gray-200">
+                          <p className="text-xs text-gray-500">Email and role cannot be changed.</p>
+                          <div className="mt-2 space-y-1">
+                            <p><span className="font-medium">Email:</span> {profile.email_address}</p>
+                            <p><span className="font-medium">Role:</span> {profile.role}</p>
+                            <p><span className="font-medium">Member since:</span> {new Date(profile.created_at).toLocaleDateString()}</p>
+                          </div>
+                        </div>
+                      </form>
+                    )}
+                  </>
                 )}
               </div>
             )}
