@@ -5,6 +5,7 @@ const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.m
 function Certificates() {
   const [selectedCertificate, setSelectedCertificate] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const certificates = [
     {
@@ -84,8 +85,7 @@ function Certificates() {
       alert('Please select a certificate to request.')
       return
     }
-    alert(`Request submitted for: ${certificates.find(c => c.id === selectedCertificate).title}`)
-    setSelectedCertificate('')
+    setShowModal(true)
   }
 
   return (
@@ -190,6 +190,22 @@ function Certificates() {
           </p>
         </div>
       </footer>
+
+      {/* Success Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-4">
+            <h3 className="text-lg font-bold text-[#2c3e50] mb-2">Request Submitted</h3>
+            <p className="text-gray-600 mb-4">Your request for "{certificates.find(c => c.id === selectedCertificate).title}" has been submitted successfully. You will be notified once it's processed.</p>
+            <button
+              onClick={() => { setShowModal(false); setSelectedCertificate(''); }}
+              className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#8B4513]/90 transition-all"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -5,6 +5,7 @@ const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.m
 function Services() {
   const [selectedService, setSelectedService] = useState('')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const services = [
     {
@@ -94,8 +95,7 @@ function Services() {
       alert('Please select a service certificate to request.')
       return
     }
-    alert(`Request submitted for: ${services.find(s => s.id === selectedService).title}`)
-    setSelectedService('')
+    setShowModal(true)
   }
 
   return (
@@ -201,6 +201,22 @@ function Services() {
           </p>
         </div>
       </footer>
+
+      {/* Success Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-4">
+            <h3 className="text-lg font-bold text-[#2c3e50] mb-2">Request Submitted</h3>
+            <p className="text-gray-600 mb-4">Your request for "{services.find(s => s.id === selectedService).title}" has been submitted successfully. You will be notified once it's processed.</p>
+            <button
+              onClick={() => { setShowModal(false); setSelectedService(''); }}
+              className="bg-[#8B4513] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#8B4513]/90 transition-all"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
