@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { auth, db } from '../lib/firebase'
+import { doc, setDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -80,12 +82,34 @@ function Certificates() {
     }
   ]
 
-  const handleRequest = () => {
+  const handleRequest = async () => {
     if (!selectedCertificate) {
       alert('Please select a certificate to request.')
       return
     }
-    setShowModal(true)
+
+    if (!auth.currentUser) {
+      alert('Please log in to submit a request.')
+      return
+    }
+
+    try {
+      const certificateData = certificates.find(c => c.id === selectedCertificate)
+      await addDoc(collection(db, 'certificate_requests'), {
+        userId: auth.currentUser.uid,
+        userEmail: auth.currentUser.email,
+        certificateId: selectedCertificate,
+        certificateTitle: certificateData.title,
+        status: 'pending',
+        submittedAt: serverTimestamp(),
+        requirements: certificateData.requirements,
+        duration: certificateData.duration
+      })
+      setShowModal(true)
+    } catch (error) {
+      console.error('Error submitting certificate request:', error)
+      alert('Error submitting request: ' + error.message)
+    }
   }
 
   return (

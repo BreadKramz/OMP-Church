@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { auth, db } from '../lib/firebase'
+import { doc, setDoc, collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -90,12 +92,35 @@ function Services() {
     }
   ]
 
-  const handleRequest = () => {
+  const handleRequest = async () => {
     if (!selectedService) {
       alert('Please select a service certificate to request.')
       return
     }
-    setShowModal(true)
+
+    if (!auth.currentUser) {
+      alert('Please log in to submit a request.')
+      return
+    }
+
+    try {
+      const serviceData = services.find(s => s.id === selectedService)
+      await addDoc(collection(db, 'service_requests'), {
+        userId: auth.currentUser.uid,
+        userEmail: auth.currentUser.email,
+        serviceId: selectedService,
+        serviceTitle: serviceData.title,
+        status: 'pending',
+        submittedAt: serverTimestamp(),
+        requirements: serviceData.requirements,
+        processingTime: serviceData.processingTime,
+        fee: serviceData.fee
+      })
+      setShowModal(true)
+    } catch (error) {
+      console.error('Error submitting service request:', error)
+      alert('Error submitting request: ' + error.message)
+    }
   }
 
   return (

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth, db } from '../lib/firebase'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore'
+import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, onSnapshot, addDoc, serverTimestamp, updateDoc } from 'firebase/firestore'
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
@@ -27,6 +27,10 @@ function AdminDashboard() {
   const [chatMessages, setChatMessages] = useState([])
   const [adminMessage, setAdminMessage] = useState('')
   const chatMessagesUnsubRef = useRef(null)
+  const [certificateRequests, setCertificateRequests] = useState([])
+  const [serviceRequests, setServiceRequests] = useState([])
+  const [requestsTab, setRequestsTab] = useState('certificates')
+  const [requestFilter, setRequestFilter] = useState('all')
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -75,6 +79,26 @@ function AdminDashboard() {
     }
   }, [])
 
+  // Fetch certificate requests
+  useEffect(() => {
+    const certQuery = query(collection(db, 'certificate_requests'), orderBy('submittedAt', 'desc'))
+    const unsubscribe = onSnapshot(certQuery, (snapshot) => {
+      const requests = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      setCertificateRequests(requests)
+    })
+    return unsubscribe
+  }, [])
+
+  // Fetch service requests
+  useEffect(() => {
+    const serviceQuery = query(collection(db, 'service_requests'), orderBy('submittedAt', 'desc'))
+    const unsubscribe = onSnapshot(serviceQuery, (snapshot) => {
+      const requests = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+      setServiceRequests(requests)
+    })
+    return unsubscribe
+  }, [])
+
   const selectChat = (chat) => {
     if (selectedChatId === chat.id) return
     setSelectedChatId(chat.id)
@@ -120,6 +144,31 @@ function AdminDashboard() {
     const date = timestamp.toDate ? timestamp.toDate() : timestamp instanceof Date ? timestamp : new Date(timestamp)
     return date.toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })
   }
+
+  const handleRequestAction = async (requestId, action, collectionName) => {
+    try {
+      const requestRef = doc(db, collectionName, requestId)
+      await updateDoc(requestRef, {
+        status: action,
+        processedAt: serverTimestamp(),
+        processedBy: uid
+      })
+      alert(`Request ${action} successfully.`)
+    } catch (error) {
+      console.error(`Error ${action}ing request:`, error)
+      alert(`Error ${action}ing request: ${error.message}`)
+    }
+  }
+
+  const filteredCertificateRequests = certificateRequests.filter(request => {
+    if (requestFilter === 'all') return true
+    return request.status === requestFilter
+  })
+
+  const filteredServiceRequests = serviceRequests.filter(request => {
+    if (requestFilter === 'all') return true
+    return request.status === requestFilter
+  })
 
   const handleLogout = async () => {
     await signOut(auth)
@@ -480,6 +529,156 @@ function AdminDashboard() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+            <div className="text-center mb-6">
+              <h2 className="text-xl font-bold text-[#2c3e50]">Requests Management</h2>
+              <p className="text-gray-600">Review and manage certificate and service requests from users</p>
+            </div>
+
+            {/* Tab Navigation */}
+            <div className="flex justify-center mb-6">
+              <div className="bg-[#f8f5f0] rounded-lg p-1">
+                <button
+                  onClick={() => setRequestsTab('certificates')}
+                  className={`px-4 py-2 rounded-md font-medium transition-all ${
+                    requestsTab === 'certificates'
+                      ? 'bg-[#8B4513] text-white'
+                      : 'text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  Certificate Requests ({certificateRequests.length})
+                </button>
+                <button
+                  onClick={() => setRequestsTab('services')}
+                  className={`px-4 py-2 rounded-md font-medium transition-all ${
+                    requestsTab === 'services'
+                      ? 'bg-[#8B4513] text-white'
+                      : 'text-gray-700 hover:bg-white'
+                  }`}
+                >
+                  Service Requests ({serviceRequests.length})
+                </button>
+              </div>
+            </div>
+
+            {/* Filter */}
+            <div className="flex justify-center mb-4">
+              <div className="flex gap-2">
+                {['all', 'pending', 'approved', 'rejected'].map(status => (
+                  <button
+                    key={status}
+                    onClick={() => setRequestFilter(status)}
+                    className={`px-3 py-1 rounded-full text-xs font-medium capitalize transition-all ${
+                      requestFilter === status
+                        ? 'bg-[#8B4513] text-white'
+                        : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                    }`}
+                  >
+                    {status}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Requests List */}
+            <div className="max-h-96 overflow-y-auto">
+              {requestsTab === 'certificates' ? (
+                <div className="space-y-3">
+                  {filteredCertificateRequests.length === 0 ? (
+                    <p className="text-center text-gray-500 py-8">No certificate requests found.</p>
+                  ) : (
+                    filteredCertificateRequests.map(request => (
+                      <div key={request.id} className="bg-[#f8f5f0] rounded-lg p-4 border border-gray-200">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h4 className="font-semibold text-[#2c3e50]">{request.certificateTitle}</h4>
+                            <p className="text-sm text-gray-600">{request.userEmail}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            request.status === 'approved' ? 'bg-green-100 text-green-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {request.status}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-500 mb-3">
+                          <p><strong>Requirements:</strong> {request.requirements}</p>
+                          <p><strong>Duration:</strong> {request.duration}</p>
+                          <p><strong>Submitted:</strong> {formatTimestamp(request.submittedAt)}</p>
+                        </div>
+                        {request.status === 'pending' && (
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleRequestAction(request.id, 'approved', 'certificate_requests')}
+                              className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700 transition-all"
+                            >
+                              Approve
+                            </button>
+                            <button
+                              onClick={() => handleRequestAction(request.id, 'rejected', 'certificate_requests')}
+                              className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition-all"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {filteredServiceRequests.length === 0 ? (
+                    <p className="text-center text-gray-500 py-8">No service requests found.</p>
+                  ) : (
+                    filteredServiceRequests.map(request => (
+                      <div key={request.id} className="bg-[#f8f5f0] rounded-lg p-4 border border-gray-200">
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <h4 className="font-semibold text-[#2c3e50]">{request.serviceTitle}</h4>
+                            <p className="text-sm text-gray-600">{request.userEmail}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            request.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                            request.status === 'approved' ? 'bg-green-100 text-green-800' :
+                            'bg-red-100 text-red-800'
+                          }`}>
+                            {request.status}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-500 mb-3">
+                          <p><strong>Requirements:</strong> {request.requirements}</p>
+                          <p><strong>Processing Time:</strong> {request.processingTime}</p>
+                          <p><strong>Fee:</strong> {request.fee}</p>
+                          <p><strong>Submitted:</strong> {formatTimestamp(request.submittedAt)}</p>
+                        </div>
+                        {request.status === 'pending' && (
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => handleRequestAction(request.id, 'approved', 'service_requests')}
+                              className="bg-green-600 text-white px-3 py-1 rounded text-xs hover:bg-green-700 transition-all"
+                            >
+                              Approve
+                            </button>
+                            <button
+                              onClick={() => handleRequestAction(request.id, 'rejected', 'service_requests')}
+                              className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition-all"
+                            >
+                              Reject
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

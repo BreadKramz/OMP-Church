@@ -27,5 +27,21 @@ service cloud.firestore {
         );
       }
     }
+
+    match /certificate_requests/{requestId} {
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      allow read, update: if request.auth != null && (
+        request.auth.uid == resource.data.userId ||
+        get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
+
+    match /service_requests/{requestId} {
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+      allow read, update: if request.auth != null && (
+        request.auth.uid == resource.data.userId ||
+        get(/databases/$(database)/documents/profiles/$(request.auth.uid)).data.role == 'admin'
+      );
+    }
   }
 }
