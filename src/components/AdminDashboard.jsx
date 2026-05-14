@@ -115,12 +115,14 @@ function AdminDashboard() {
     return unsubscribe
   }, [])
 
-  const selectChat = (chat) => {
+  const selectChat = async (chat) => {
     if (selectedChatId === chat.id) return
     setSelectedChatId(chat.id)
     setSelectedChat(chat)
     setChatMessages([])
     setIsAdminTyping(false)
+    // Reset typing for the user
+    await setDoc(doc(db, 'chats', chat.id), { typing: false }, { merge: true })
     if (chatMessagesUnsubRef.current) {
       chatMessagesUnsubRef.current()
     }
@@ -138,6 +140,9 @@ function AdminDashboard() {
     setAdminMessage('')
     setIsAdminTyping(true)
 
+    // Set typing to true for the user
+    await setDoc(doc(db, 'chats', selectedChatId), { typing: true }, { merge: true })
+
     setTimeout(async () => {
       try {
         await addDoc(collection(db, 'chats', selectedChatId, 'messages'), {
@@ -149,7 +154,8 @@ function AdminDashboard() {
           doc(db, 'chats', selectedChatId),
           {
             lastMessage: content,
-            updatedAt: serverTimestamp()
+            updatedAt: serverTimestamp(),
+            typing: false
           },
           { merge: true }
         )
@@ -158,6 +164,7 @@ function AdminDashboard() {
         console.error('Error sending admin message:', error)
         alert('Error sending message: ' + error.message)
         setIsAdminTyping(false)
+        await setDoc(doc(db, 'chats', selectedChatId), { typing: false }, { merge: true })
       }
     }, 1500)
   }

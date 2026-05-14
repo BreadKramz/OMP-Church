@@ -19,6 +19,21 @@ const TypingIndicator = () => (
   </div>
 )
 
+const AdminTypingIndicator = () => (
+  <div className="flex justify-start">
+    <div className="max-w-[85%] p-3 rounded-2xl text-sm bg-blue-100 text-gray-800 rounded-bl-md shadow-sm border border-blue-200">
+      <div className="flex items-center gap-1">
+        <span className="text-blue-600 font-semibold">Admin is typing</span>
+        <div className="flex gap-1">
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce"></div>
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 function Chatbot() {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
@@ -36,6 +51,7 @@ function Chatbot() {
   const [chatMode, setChatMode] = useState('chatbot')
   const [showContinueButtons, setShowContinueButtons] = useState(false)
   const [isTyping, setIsTyping] = useState(false)
+  const [isAdminTyping, setIsAdminTyping] = useState(false)
   const messagesEndRef = useRef(null)
 
   const predefinedQuestions = [
@@ -240,13 +256,14 @@ function Chatbot() {
       ])
       setShowContinueButtons(false)
       setIsTyping(false)
+      setIsAdminTyping(false)
       return
     }
 
     const uid = user.uid
 
     const messagesQuery = query(collection(db, 'chats', uid, 'messages'), orderBy('createdAt'))
-    const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
+    const messagesUnsub = onSnapshot(messagesQuery, (snapshot) => {
       if (!snapshot.empty) {
         const firestoreMessages = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
         setMessages(firestoreMessages.map((message) => ({
@@ -264,10 +281,22 @@ function Chatbot() {
         ])
         setShowContinueButtons(false)
         setIsTyping(false)
+        setIsAdminTyping(false)
       }
     })
 
-    return unsubscribe
+    const chatDocRef = doc(db, 'chats', uid)
+    const chatUnsub = onSnapshot(chatDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data()
+        setIsAdminTyping(data.typing || false)
+      }
+    })
+
+    return () => {
+      messagesUnsub()
+      chatUnsub()
+    }
   }, [user])
 
   // Auto-scroll to bottom when new messages are added
@@ -376,6 +405,7 @@ function Chatbot() {
               )
             })}
             {isTyping && chatMode === 'chatbot' && <TypingIndicator />}
+            {isAdminTyping && chatMode === 'agent' && <AdminTypingIndicator />}
             <div ref={messagesEndRef} />
           </div>
 
