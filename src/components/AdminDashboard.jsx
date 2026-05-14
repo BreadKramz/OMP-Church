@@ -6,6 +6,21 @@ import { doc, getDoc, setDoc, collection, getDocs, query, orderBy, onSnapshot, a
 
 const logoImage = new URL('../assets/images/Perpetual Church Logo.png', import.meta.url).href
 
+const AdminTypingIndicator = () => (
+  <div className="flex justify-end">
+    <div className="max-w-[85%] p-3 rounded-2xl text-sm bg-blue-100 text-gray-800 rounded-br-md shadow-sm border border-blue-200">
+      <div className="flex items-center gap-1">
+        <span className="text-blue-600 font-semibold">Admin is typing</span>
+        <div className="flex gap-1">
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce"></div>
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+          <div className="w-1 h-1 bg-blue-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 function AdminDashboard() {
   const navigate = useNavigate()
   const [profile, setProfile] = useState(null)
@@ -31,6 +46,7 @@ function AdminDashboard() {
   const [serviceRequests, setServiceRequests] = useState([])
   const [requestsTab, setRequestsTab] = useState('certificates')
   const [requestFilter, setRequestFilter] = useState('all')
+  const [isAdminTyping, setIsAdminTyping] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -104,6 +120,7 @@ function AdminDashboard() {
     setSelectedChatId(chat.id)
     setSelectedChat(chat)
     setChatMessages([])
+    setIsAdminTyping(false)
     if (chatMessagesUnsubRef.current) {
       chatMessagesUnsubRef.current()
     }
@@ -117,26 +134,32 @@ function AdminDashboard() {
   const handleSendAdminMessage = async () => {
     if (!selectedChatId || !adminMessage.trim()) return
 
-    try {
-      const content = adminMessage.trim()
-      await addDoc(collection(db, 'chats', selectedChatId, 'messages'), {
-        sender: 'admin',
-        content,
-        createdAt: serverTimestamp()
-      })
-      await setDoc(
-        doc(db, 'chats', selectedChatId),
-        {
-          lastMessage: content,
-          updatedAt: serverTimestamp()
-        },
-        { merge: true }
-      )
-      setAdminMessage('')
-    } catch (error) {
-      console.error('Error sending admin message:', error)
-      alert('Error sending message: ' + error.message)
-    }
+    const content = adminMessage.trim()
+    setAdminMessage('')
+    setIsAdminTyping(true)
+
+    setTimeout(async () => {
+      try {
+        await addDoc(collection(db, 'chats', selectedChatId, 'messages'), {
+          sender: 'admin',
+          content,
+          createdAt: serverTimestamp()
+        })
+        await setDoc(
+          doc(db, 'chats', selectedChatId),
+          {
+            lastMessage: content,
+            updatedAt: serverTimestamp()
+          },
+          { merge: true }
+        )
+        setIsAdminTyping(false)
+      } catch (error) {
+        console.error('Error sending admin message:', error)
+        alert('Error sending message: ' + error.message)
+        setIsAdminTyping(false)
+      }
+    }, 1500)
   }
 
   const formatTimestamp = (timestamp) => {
@@ -503,9 +526,10 @@ function AdminDashboard() {
                               </p>
                             </div>
                           )
-                        })
-                      )}
-                    </div>
+                         })
+                       )}
+                       {isAdminTyping && <AdminTypingIndicator />}
+                     </div>
                     <div className="mt-4">
                       <textarea
                         value={adminMessage}

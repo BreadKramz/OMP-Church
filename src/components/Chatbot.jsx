@@ -4,6 +4,21 @@ import { collection, doc, setDoc, query, orderBy, onSnapshot, addDoc, serverTime
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, db } from '../lib/firebase'
 
+const TypingIndicator = () => (
+  <div className="flex justify-start">
+    <div className="max-w-[85%] p-3 rounded-2xl text-sm bg-white text-gray-800 rounded-bl-md shadow-sm border border-gray-100">
+      <div className="flex items-center gap-1">
+        <span className="text-gray-500">Bot is typing</span>
+        <div className="flex gap-1">
+          <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"></div>
+          <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+          <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
 function Chatbot() {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false)
@@ -20,6 +35,7 @@ function Chatbot() {
   const [showAgentModal, setShowAgentModal] = useState(false)
   const [chatMode, setChatMode] = useState('chatbot')
   const [showContinueButtons, setShowContinueButtons] = useState(false)
+  const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef(null)
 
   const predefinedQuestions = [
@@ -113,15 +129,20 @@ function Chatbot() {
       timestamp: new Date()
     }
 
-    const botMessage = {
-      id: messages.length + 2,
-      type: 'bot',
-      content: question.answer,
-      timestamp: new Date()
-    }
+    setMessages(prev => [...prev, userMessage])
+    setIsTyping(true)
 
-    setMessages(prev => [...prev, userMessage, botMessage])
-    setShowContinueButtons(true)
+    setTimeout(() => {
+      const botMessage = {
+        id: messages.length + 2,
+        type: 'bot',
+        content: question.answer,
+        timestamp: new Date()
+      }
+      setMessages(prev => [...prev, botMessage])
+      setIsTyping(false)
+      setShowContinueButtons(true)
+    }, 2000)
   }
 
   const handleSendMessage = async () => {
@@ -129,13 +150,24 @@ function Chatbot() {
 
     const messageText = inputMessage.trim()
 
+    const userMessage = {
+      id: messages.length + 1,
+      type: 'user',
+      content: messageText,
+      timestamp: new Date()
+    }
+
     if (user && chatMode === 'agent') {
       setInputMessage('')
-      try {
-        await sendUserChatMessage(messageText)
-      } catch (error) {
-        console.error('Failed to send chat message:', error)
-      }
+      setIsTyping(true)
+      setTimeout(async () => {
+        try {
+          await sendUserChatMessage(messageText)
+        } catch (error) {
+          console.error('Failed to send chat message:', error)
+        }
+        setIsTyping(false)
+      }, 1000)
       return
     }
 
@@ -145,35 +177,34 @@ function Chatbot() {
 
     const userInput = messageText.toLowerCase()
 
-    const userMessage = {
-      id: messages.length + 1,
-      type: 'user',
-      content: messageText,
-      timestamp: new Date()
-    }
-
-    const matchedQuestion = userInput.length >= 4 ? predefinedQuestions.find(q =>
-      q.question.toLowerCase().includes(userInput) ||
-      userInput.includes(q.question.toLowerCase().replace('?', '').replace('what ', '').replace('how ', '').replace('where ', '').replace('when ', ''))
-    ) : null
-
-    let botResponse
-    if (matchedQuestion) {
-      botResponse = matchedQuestion.answer
-    } else {
-      botResponse = "I'm sorry, I don't understand your message. Please try one of the quick questions above, or contact our parish office at 225-4763 or email redsdgte@gmail.com for additional questions."
-    }
-
-    const botMessage = {
-      id: messages.length + 2,
-      type: 'bot',
-      content: botResponse,
-      timestamp: new Date()
-    }
-
-    setMessages(prev => [...prev, userMessage, botMessage])
+    setMessages(prev => [...prev, userMessage])
     setInputMessage('')
-    setShowContinueButtons(true)
+    setIsTyping(true)
+
+    setTimeout(() => {
+      const matchedQuestion = userInput.length >= 4 ? predefinedQuestions.find(q =>
+        q.question.toLowerCase().includes(userInput) ||
+        userInput.includes(q.question.toLowerCase().replace('?', '').replace('what ', '').replace('how ', '').replace('where ', '').replace('when ', ''))
+      ) : null
+
+      let botResponse
+      if (matchedQuestion) {
+        botResponse = matchedQuestion.answer
+      } else {
+        botResponse = "I'm sorry, I don't understand your message. Please try one of the quick questions above, or contact our parish office at 225-4763 or email redsdgte@gmail.com for additional questions."
+      }
+
+      const botMessage = {
+        id: messages.length + 2,
+        type: 'bot',
+        content: botResponse,
+        timestamp: new Date()
+      }
+
+      setMessages(prev => [...prev, botMessage])
+      setIsTyping(false)
+      setShowContinueButtons(true)
+    }, 2000)
   }
 
   const handleKeyPress = (e) => {
@@ -191,6 +222,7 @@ function Chatbot() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser)
+      setIsTyping(false)
     })
     return unsubscribe
   }, [])
@@ -206,8 +238,8 @@ function Chatbot() {
           timestamp: new Date()
         }
       ])
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowContinueButtons(false)
+      setIsTyping(false)
       return
     }
 
@@ -231,6 +263,7 @@ function Chatbot() {
           }
         ])
         setShowContinueButtons(false)
+        setIsTyping(false)
       }
     })
 
@@ -342,6 +375,7 @@ function Chatbot() {
                 </div>
               )
             })}
+            {isTyping && chatMode === 'chatbot' && <TypingIndicator />}
             <div ref={messagesEndRef} />
           </div>
 
